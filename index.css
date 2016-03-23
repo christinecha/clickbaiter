@@ -1,0 +1,34 @@
+body, * {
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.folio-row--outer {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.folio-row--inner {
+  margin: 0 -10px;
+  text-align: center;
+}
+
+.folio-block {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.folio-block.linked:hover {
+  opacity: .8;
+}
+
+.folio-block--keywords {
+}
+
+.folio-block--keyword {
+  display: inline-block;
+}

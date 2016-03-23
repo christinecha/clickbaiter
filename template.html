@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+  <meta property="fb:app_id"             content="498097037043503" />
+  <meta property="og:url"                content="http://d1c54718.ngrok.io/" />
+  <meta property="og:type"               content="article" />
+  <meta property="og:title"              content={{foo}} />
+  <meta property="og:description"        content={{bar}} />
+  <meta property="og:image"              content="http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg" />
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Geo:400|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  <link href="index.css" rel="stylesheet" />
+</head>
+
+<body>
+
+  <div id="gridfolio-react">
+  </div>
+
+  <button id="blah">
+    meooow
+  </button>
+  <script src="bundle.js" type="text/javascript"></script>
+  <script>
+    document.getElementById("blah").addEventListener("click", function() {
+      FB.ui({
+        method: 'share_open_graph',
+        action_type: 'og.reads',
+        action_properties: JSON.stringify({
+          object: "http://d1c54718.ngrok.io/"
+        })
+      }, function(response){});
+    })
+  </script>
+</body>
+</html>
