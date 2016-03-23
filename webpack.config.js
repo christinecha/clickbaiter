@@ -3,10 +3,10 @@ var webpack = require('webpack');
 module.exports = {
   entry: [
     'webpack/hot/only-dev-server',
-    './src/app.js'
+    './public/src/app.js'
   ],
   output: {
-    path: __dirname + '/build',
+    path: __dirname + '/public/build',
     filename: 'bundle.js'
   },
   module: {

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+  </head>
+
+  <body>
+    <form id="clickbait-generator">
+      <input type="text" id="title" />
+      <input type="text" id="description" />
+      <button>submit</button>
+    </form>
+
+    <script>
+      var ref = new Firebase("https://clickbaiter.firebaseio.com/")
+
+      document.getElementById("clickbait-generator").addEventListener("submit", function(e) {
+        e.preventDefault()
+        var title = document.getElementById("title").value
+        var description = document.getElementById("description").value
+        var newKey = ref.child("articles").push({
+          title: title,
+          description: description
+        }, function() {
+          location.href = "/article/" + newKey.key()
+        })
+      })
+    </script>
+  </body>
+</html>
