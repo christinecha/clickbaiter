@@ -133,6 +133,7 @@
 	      title: "",
 	      description: "",
 	      imageLink: "",
+	      siteName: "",
 	      shareLink: ""
 	    };
 	    return _this;
@@ -156,7 +157,8 @@
 
 	      e.preventDefault();
 	      this.setState({
-	        shareable: false
+	        shareable: false,
+	        imageLink: ""
 	      });
 
 	      var title = helper.random(dictionary.titles).reduce(function (acc, n) {
@@ -167,13 +169,12 @@
 	          _this3.getImageLink(madLib);
 	          return acc + " " + madLib;
 	        }
-	      });
-
-	      var description = helper.random(dictionary.descriptions);
+	      }, "");
 
 	      this.setState({
 	        title: title,
-	        description: description
+	        description: helper.random(dictionary.descriptions),
+	        site_name: helper.random(dictionary.siteNames)
 	      }, function () {
 	        _this3.renderBait();
 	      });
@@ -194,7 +195,8 @@
 	            var newKey = ref.child("articles").push({
 	              title: _this4.state.title,
 	              description: _this4.state.description,
-	              imageLink: _this4.state.imageLink
+	              imageLink: _this4.state.imageLink,
+	              site_name: _this4.state.site_name
 	            }, function () {
 	              _this4.setState({
 	                shareLink: location.origin + "/article/" + newKey.key(),
@@ -20177,29 +20179,35 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var numbers = exports.numbers = [7, 66, 500, 3, 4, 2, 80];
+	var numbers = exports.numbers = ["7", "66", "500", "3", "4", "2", "80", "17", "99", "43"];
 
-	var places = exports.places = ["White House", "Clinton Foundation", "Oval Office"];
+	var places = exports.places = {
+	  at: ["the White House", "the Clinton Foundation", "the Oval Office", "Whole Foods"],
+	  in: ["Canada", "Saudi Arabia", "France", "New Jersey", "Washington", "Russia", "North Korea"]
+	};
 
 	var nouns = exports.nouns = {
-	  celebs: ["Brad Pitt", "Albert Einstein", "the Illuminati", "Obama", "Donald Trump", "Jesus", "Jay-Z", "Beyonce", "Bernie Sanders", "Hillary Clinton"],
+	  celebs: ["Brad Pitt", "Albert Einstein", "the Illuminati", "Obama", "Donald Trump", "Jesus", "Jay-Z", "Beyonce", "Bernie Sanders", "Hillary Clinton", "Tupac", "Vladimir Putin", "Caitlyn Jenner", "Mariah Carey", "Ted Cruz", "Michelle Obama", "Drake", "Rihanna", "the Supreme Court", "the 99%"],
 	  objects: {
-	    plural: ["shoes", "children", "aliens", "oatmeal cookies", "votes", "chairs"],
-	    singular: ["child", "shoe", "kale wrap", "feminist", "fish"]
+	    plural: ["shoes", "children", "aliens", "oatmeal cookies", "votes", "chairs", "celebrities", "immigrants", "toxins", "chemicals", "chemtrails", "coconuts", "Democrats", "Republicans", "humans", "dogs", "CEOs"],
+	    singular: ["child", "boy", "feminist", "teenager", "kitten", "activist", "protester", "vegan", "student", "refugee", "CEO"],
+	    isms: ["yoga", "hypnotism", "feminism", "homophobia", "body odor", "the Internet", "intellectualism", "religion", "veganism", "fascism", "socialism", "addiction"]
 	  }
 	};
 
 	var verbs = exports.verbs = {
-	  direct: ["threw up on", "kissed", "met"]
+	  past: ["met with", "found out about", "embarrassed", "worked with", "exposed", "avoided", "insulted", "LIED to", "was seen with", "got caught with", "pissed off"]
 	};
 
-	var adjectives = exports.adjectives = ["amazing", "Republican", "liberal", "racist", "feminist", "gay"];
+	var adverbs = exports.adverbs = ["really", "actually", "honestly", "secretly", "quietly"];
+
+	var adjectives = exports.adjectives = ["amazing", "Republican", "liberal", "racist", "feminist", "gay", "harmful", "toxic", "vegan", "violent", "biased"];
 
 	var siteNames = exports.siteNames = ["THETRUTH.ORG", "TheTruthDoctor.com", "SignEverySinglePetition.org", "YES.com"];
 
-	var titles = exports.titles = [["You won't believe what happened when", nouns.celebs, verbs.direct, "the", adjectives, nouns.objects.singular], [numbers, "things that changed the way I think about", nouns.celebs.concat(nouns.objects.plural)], ["The truth behind", nouns.celebs.concat(nouns.objects.plural), "and", nouns.celebs.concat(nouns.objects.plural)], ["What really happened with", nouns.objects.singular, "at the", places], ["Scientists just discovered that", nouns.objects.plural, "are actually", adjectives, "- here's the proof"], ["Here's what happened when", nouns.celebs, verbs.direct, nouns.celebs]];
+	var titles = exports.titles = [["You won't believe what happened when", nouns.celebs, verbs.past, "the", adjectives, nouns.objects.singular], [numbers, "things that changed the way I think about", nouns.celebs.concat(nouns.objects.plural, places.at, places.in)], [numbers, "things we all love about", nouns.celebs.concat(nouns.objects.plural, places.at, places.in)], ["The truth behind", nouns.celebs.concat(nouns.objects.plural, places.at, places.in), "and", nouns.celebs.concat(nouns.objects.plural, places.at, places.in)], ["What", adverbs, "happened with the", nouns.objects.singular, "at", places.at], ["Scientists just discovered that", nouns.objects.plural, "are actually", adjectives, "- here's the proof"], ["Reports show that", nouns.objects.isms, "is secretly", adjectives, "- and the numbers don't lie"], ["Here's what happened when", nouns.celebs, verbs.past, nouns.celebs], [numbers, "reasons why researchers are saying NO to", nouns.objects.plural], ["Can being", adjectives, adverbs, "change your life?", "True stories from", nouns.celebs], ["Has", nouns.objects.isms.concat(places.at, places.in), adverbs, "been rooted in", nouns.objects.isms, "all along?"], ["I had no idea that", places.at.concat(places.in), "was", adverbs, adjectives, "... until this happened."], ["What's", adverbs, "going on behind the scenes at", places.at], ["What's", adverbs, "going on behind the scenes in", places.in], [nouns.celebs, "finally admits to being", adverbs, adjectives, "- what?!"], ["This", adjectives, nouns.objects.singular, "will", adverbs, "make you cry."]];
 
-	var descriptions = exports.descriptions = ["You'll be stunned.", "You won't believe it.", "Just wow.", "How can this be possible?", "... and why all of your friends are talking about it.", "... and why it's trending on Twitter.", "Whaaaaat?!", "Seriously, this is crazy.", "Prepare to have your mind blown."];
+	var descriptions = exports.descriptions = ["You'll be stunned.", "You won't believe it.", "Just wow.", "How can this be possible?", "... and why all of your friends are talking about it.", "... and why it's trending on Twitter.", "Whaaaaat?!", "Seriously, this is crazy.", "How is this still happening?", "Prepare to have your mind blown.", "How is nobody talking about this?", "What the media ISN\'T telling us.", "Yep, this is real.", "How is this real?", "I couldn't believe it."];
 
 /***/ }
 /******/ ]);

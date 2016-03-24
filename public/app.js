@@ -15,6 +15,7 @@ class App extends React.Component {
       title: "",
       description: "",
       imageLink: "",
+      siteName: "",
       shareLink: ""
     }
   }
@@ -30,7 +31,8 @@ class App extends React.Component {
   getBait(e) {
     e.preventDefault()
     this.setState({
-      shareable: false
+      shareable: false,
+      imageLink: ""
     })
 
     let title = helper.random(dictionary.titles).reduce((acc, n) => {
@@ -41,13 +43,12 @@ class App extends React.Component {
         this.getImageLink(madLib)
         return acc + " " + madLib
       }
-    })
-
-    let description = helper.random(dictionary.descriptions)
+    }, "")
 
     this.setState({
       title: title,
-      description: description
+      description: helper.random(dictionary.descriptions),
+      site_name: helper.random(dictionary.siteNames)
     }, () => {
       this.renderBait()
     })
@@ -64,7 +65,8 @@ class App extends React.Component {
         let newKey = ref.child("articles").push({
           title: this.state.title,
           description: this.state.description,
-          imageLink: this.state.imageLink
+          imageLink: this.state.imageLink,
+          site_name: this.state.site_name
         }, () => {
           this.setState({
             shareLink: location.origin + "/article/" + newKey.key(),
