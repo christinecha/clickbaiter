@@ -6,7 +6,7 @@
   <meta property="og:type"               content="article" />
   <meta property="og:title"              content={{article.title}} />
   <meta property="og:description"        content={{article.description}} />
-  <meta property="og:image"              content="http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg" />
+  <meta property="og:image"              content={{article.imageLink}} />
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link href='https://fonts.googleapis.com/css?family=Geo:400|Inconsolata:400,700' rel='stylesheet' type='text/css'>
@@ -22,33 +22,5 @@
     meooow
   </button>
   <script src="build/bundle.js" type="text/javascript"></script>
-
-  <script>
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId      : '498097037043503',
-        xfbml      : true,
-        version    : 'v2.5'
-      });
-    };
-
-    (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "//connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
-
-    document.getElementById("blah").addEventListener("click", function() {
-      FB.ui({
-        method: 'share_open_graph',
-        action_type: 'og.reads',
-        action_properties: JSON.stringify({
-          object: {{url}}
-        })
-      }, function(response){});
-    })
-  </script>
 </body>
 </html>

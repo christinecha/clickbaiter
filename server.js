@@ -7,7 +7,7 @@ const express  = require('express'),
 
 const ref = new Firebase("https://clickbaiter.firebaseio.com/")
 
-app.use(express.static(__dirname + '/public/src'))
+app.use(express.static(__dirname + '/public'))
 
 app.get('/article/:key', (req, res) => {
 
@@ -22,8 +22,10 @@ app.get('/article/:key', (req, res) => {
 
       while (match) {
         var replValue = new RegExp ("{{" + match[1] + "}}")
-        if (eval(match[1]).length > 0) {
+        if (eval(match[1]) != null) {
           html = html.replace(replValue, "\"" + eval(match[1]) + "\"")
+        } else {
+          html = html.replace(replValue, "\"\"")
         }
         match = findVariable.exec(html)
       }
