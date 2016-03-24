@@ -130,6 +130,7 @@
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this));
 
 	    _this.state = {
+	      gotcha: false,
 	      title: "",
 	      description: "",
 	      imageLink: "",
@@ -140,65 +141,88 @@
 	  }
 
 	  _createClass(App, [{
-	    key: 'getImageLink',
-	    value: function getImageLink(query) {
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
 	      var _this2 = this;
 
+	      var paramObj = helper.getParamObj(location.href);
+	      if (paramObj && paramObj.gotcha) {
+	        ref.child("articles").child(paramObj.id).once("value", function (snapshot) {
+	          if (snapshot.val()) {
+	            console.log(snapshot.val());
+	            _this2.setState({
+	              gotcha: paramObj.gotcha,
+	              title: snapshot.val().title,
+	              description: snapshot.val().description,
+	              imageLink: snapshot.val().imageLink,
+	              shareLink: location.origin + "/article/" + snapshot.key(),
+	              shareable: true
+	            });
+	          }
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'getImageLink',
+	    value: function getImageLink(query) {
+	      var _this3 = this;
+
 	      helper.getImage(query).then(function (imageLink) {
-	        _this2.setState({
-	          imageLink: imageLink || _this2.state.imageLink
+	        _this3.setState({
+	          imageLink: imageLink || _this3.state.imageLink
 	        });
 	      });
 	    }
 	  }, {
 	    key: 'getBait',
 	    value: function getBait(e) {
-	      var _this3 = this;
+	      var _this4 = this;
 
 	      e.preventDefault();
 	      this.setState({
 	        shareable: false,
 	        imageLink: ""
-	      });
-
-	      var title = helper.random(dictionary.titles).reduce(function (acc, n) {
-	        if (typeof n == "string") {
-	          return acc + " " + n;
-	        } else {
-	          var madLib = helper.getMadLib(n);
-	          _this3.getImageLink(madLib);
-	          return acc + " " + madLib;
-	        }
-	      }, "");
-
-	      this.setState({
-	        title: title,
-	        description: helper.random(dictionary.descriptions),
-	        site_name: helper.random(dictionary.siteNames)
 	      }, function () {
-	        _this3.renderBait();
+	        var title = helper.random(dictionary.titles).reduce(function (acc, n) {
+	          if (typeof n == "string") {
+	            return acc + " " + n;
+	          } else {
+	            var madLib = helper.getMadLib(n);
+	            return acc + " " + madLib;
+	          }
+	        }, "");
+
+	        _this4.getImageLink(helper.random(title.split(" ")));
+
+	        _this4.setState({
+	          title: title,
+	          description: helper.random(dictionary.descriptions),
+	          site_name: helper.random(dictionary.siteNames)
+	        }, function () {
+	          _this4.renderBait();
+	        });
 	      });
 	    }
 	  }, {
 	    key: 'renderBait',
 	    value: function renderBait() {
-	      var _this4 = this;
+	      var _this5 = this;
 
 	      var count = 0;
 
 	      var timeout = setInterval(function () {
-	        if (_this4.state.imageLink.length < 10 && count < 100) {
+	        if (_this5.state.imageLink.length < 10 && count < 100) {
 	          count++;
-	        } else if (_this4.state.imageLink.length > 10) {
+	        } else if (_this5.state.imageLink.length > 10) {
 	          (function () {
 	            clearInterval(timeout);
 	            var newKey = ref.child("articles").push({
-	              title: _this4.state.title,
-	              description: _this4.state.description,
-	              imageLink: _this4.state.imageLink,
-	              site_name: _this4.state.site_name
+	              title: _this5.state.title,
+	              description: _this5.state.description,
+	              imageLink: _this5.state.imageLink,
+	              site_name: _this5.state.site_name
 	            }, function () {
-	              _this4.setState({
+	              _this5.setState({
 	                shareLink: location.origin + "/article/" + newKey.key(),
 	                shareable: true
 	              });
@@ -224,22 +248,26 @@
 	  }, {
 	    key: 'getShareButton',
 	    value: function getShareButton() {
-	      var _this5 = this;
+	      var _this6 = this;
 
 	      if (this.state.shareable) {
-	        return _react2.default.createElement('button', { onClick: function onClick(e) {
-	            return _this5.shareBait(e);
-	          } }, 'go fish');
+	        return _react2.default.createElement('div', null, _react2.default.createElement('button', { className: 'share facebook', onClick: function onClick(e) {
+	            return _this6.shareBait(e);
+	          } }, 'Facebook'), _react2.default.createElement('a', {
+	          className: 'twitter-share-button',
+	          href: "https://twitter.com/intent/tweet?text=" + this.state.shareLink,
+	          target: 'blank',
+	          'data-size': 'large' }, _react2.default.createElement('button', { className: 'share twitter' }, 'Tweet it')));
 	      }
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this6 = this;
+	      var _this7 = this;
 
-	      return _react2.default.createElement('form', { id: 'clickbait-generator' }, _react2.default.createElement('button', { onClick: function onClick(e) {
-	          return _this6.getBait(e);
-	        } }, 'give me some bait'), this.getShareButton());
+	      return _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'preview', style: { backgroundImage: "url('" + this.state.imageLink + "')" } }, _react2.default.createElement('div', { className: 'previewText' }, _react2.default.createElement('h2', { className: 'title' }, this.state.title), _react2.default.createElement('h4', { className: 'description' }, this.state.description))), _react2.default.createElement('form', { id: 'clickbait-generator' }, _react2.default.createElement('button', { className: 'baitMe', onClick: function onClick(e) {
+	          return _this7.getBait(e);
+	        } }, 'give me some bait'), this.getShareButton()));
 	    }
 	  }]);
 
@@ -20159,7 +20187,7 @@
 	    req.onreadystatechange = function () {
 	      if (req.readyState == 4 && req.status == 200) {
 	        var results = JSON.parse(req.response);
-	        var photo = results.photos.photo[1];
+	        var photo = random(results.photos.photo);
 	        var imageURL = "https://farm" + photo.farm + ".staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + ".jpg";
 	        resolve(imageURL);
 	      }
@@ -20168,6 +20196,25 @@
 	    req.open("GET", "https://api.flickr.com/services/rest/?api_key=a41cd321041173cb1fbbc60866bb8fbc&method=flickr.photos.search&format=json&nojsoncallback=1&sort=relevance&per_page=10&text=" + query, true);
 	    req.send();
 	  });
+	};
+
+	var getParamObj = exports.getParamObj = function getParamObj(url) {
+	  var params = url.split('?')[1];
+	  var paramObj = {};
+
+	  if (params) {
+	    params = params.split('&');
+
+	    params.forEach(function (string) {
+	      var key = string.split('=')[0];
+	      var value = string.split('=')[1];
+	      paramObj[key] = value;
+	    });
+
+	    return paramObj;
+	  }
+
+	  return null;
 	};
 
 /***/ },
@@ -20182,30 +20229,29 @@
 	var numbers = exports.numbers = ["7", "66", "500", "3", "4", "2", "80", "17", "99", "43"];
 
 	var places = exports.places = {
-	  at: ["the White House", "the Clinton Foundation", "the Oval Office", "Whole Foods"],
-	  in: ["Canada", "Saudi Arabia", "France", "New Jersey", "Washington", "Russia", "North Korea"]
+	  at: ["the Recurse Center", "the Vatican", "the White House", "the UN", "the Facebook office", "the Clinton Foundation", "the Oval Office", "Whole Foods"],
+	  in: ["the future", "Canada", "Saudi Arabia", "France", "New Jersey", "Washington", "Russia", "Silicon Valley", "North Korea", "outer space", "Capitalist America", "our own backyards", "Mexico", "the military"]
 	};
 
 	var nouns = exports.nouns = {
-	  celebs: ["Brad Pitt", "Albert Einstein", "the Illuminati", "Obama", "Donald Trump", "Jesus", "Jay-Z", "Beyonce", "Bernie Sanders", "Hillary Clinton", "Tupac", "Vladimir Putin", "Caitlyn Jenner", "Mariah Carey", "Ted Cruz", "Michelle Obama", "Drake", "Rihanna", "the Supreme Court", "the 99%"],
+	  celebs: ["Sean Lee", "Dora Jambor", "Pope Francis", "Brad Pitt", "Bill Cosby", "Albert Einstein", "the Illuminati", "Obama", "Donald Trump", "Jesus", "Jay-Z", "Beyonce", "Bernie Sanders", "Hillary Clinton", "Bill Gates", "Tupac", "Michael Jackson", "Vladimir Putin", "Caitlyn Jenner", "Mariah Carey", "Kanye West", "Ted Cruz", "Mark Zuckerberg", "Kim Kardashian", "the CIA", "the NSA", "Michelle Obama", "Drake", "Rihanna", "the Supreme Court", "the 99%", "Florida Man", "Taylor Swift", "Bill Nye"],
 	  objects: {
-	    plural: ["shoes", "children", "aliens", "oatmeal cookies", "votes", "chairs", "celebrities", "immigrants", "toxins", "chemicals", "chemtrails", "coconuts", "Democrats", "Republicans", "humans", "dogs", "CEOs"],
-	    singular: ["child", "boy", "feminist", "teenager", "kitten", "activist", "protester", "vegan", "student", "refugee", "CEO"],
-	    isms: ["yoga", "hypnotism", "feminism", "homophobia", "body odor", "the Internet", "intellectualism", "religion", "veganism", "fascism", "socialism", "addiction"]
+	    plural: ["shoes", "children", "aliens", "oatmeal cookies", "votes", "chairs", "celebrities", "immigrants", "toxins", "chemicals", "chemtrails", "coconuts", "Democrats", "Republicans", "humans", "dogs", "CEOs", "kids", "scientists", "iPhones", "police officers", "hypochondriacs"],
+	    singular: ["woman", "dad", "child", "boy", "feminist", "teenager", "kitten", "activist", "protester", "vegan", "student", "refugee", "CEO", "priest", "capitalist", "entrepreneur", "veteran", "social worker", "miracle doctor", "porn actor", "undercover cop", "baby", "taxi driver"],
+	    isms: ["yoga", "hypnotism", "feminism", "homophobia", "misogyny", "body odor", "the Internet", "intellectualism", "religion", "veganism", "fascism", "socialism", "addiction", "tax evasion", "fracking", "soylent", "science", "Scientology", "Mormonism", "military", "jazz", "dubstep", "social media", "the 1%", "Corporate America", "fraud"]
 	  }
 	};
 
 	var verbs = exports.verbs = {
-	  past: ["met with", "found out about", "embarrassed", "worked with", "exposed", "avoided", "insulted", "LIED to", "was seen with", "got caught with", "pissed off"]
+	  past: ["signed a contract with", "made a deal with", "met with", "found out about", "embarrassed", "worked with", "exposed", "avoided", "insulted", "LIED to", "was seen with", "got caught with", "pissed off", "tricked", "came clean to", "sat next to", "had a secret meeting with"],
+	  gerunds: ["living", "doing yoga", "meditating", "eating kale", "doing crossfit", "voting", "smoking weed", "lying", "breathing", "making money"]
 	};
 
-	var adverbs = exports.adverbs = ["really", "actually", "honestly", "secretly", "quietly"];
-
-	var adjectives = exports.adjectives = ["amazing", "Republican", "liberal", "racist", "feminist", "gay", "harmful", "toxic", "vegan", "violent", "biased"];
+	var adjectives = exports.adjectives = ["amazing", "Republican", "unsuspecting", "sexist", "money-hungry", "liberal", "racist", "feminist", "gay", "harmful", "toxic", "vegan", "violent", "biased", "depressed", "misogynist", "shocking", "homeless", "terrible", "evil", "miraculous", "American", "Western"];
 
 	var siteNames = exports.siteNames = ["THETRUTH.ORG", "TheTruthDoctor.com", "SignEverySinglePetition.org", "YES.com"];
 
-	var titles = exports.titles = [["You won't believe what happened when", nouns.celebs, verbs.past, "the", adjectives, nouns.objects.singular], [numbers, "things that changed the way I think about", nouns.celebs.concat(nouns.objects.plural, places.at, places.in)], [numbers, "things we all love about", nouns.celebs.concat(nouns.objects.plural, places.at, places.in)], ["The truth behind", nouns.celebs.concat(nouns.objects.plural, places.at, places.in), "and", nouns.celebs.concat(nouns.objects.plural, places.at, places.in)], ["What", adverbs, "happened with the", nouns.objects.singular, "at", places.at], ["Scientists just discovered that", nouns.objects.plural, "are actually", adjectives, "- here's the proof"], ["Reports show that", nouns.objects.isms, "is secretly", adjectives, "- and the numbers don't lie"], ["Here's what happened when", nouns.celebs, verbs.past, nouns.celebs], [numbers, "reasons why researchers are saying NO to", nouns.objects.plural], ["Can being", adjectives, adverbs, "change your life?", "True stories from", nouns.celebs], ["Has", nouns.objects.isms.concat(places.at, places.in), adverbs, "been rooted in", nouns.objects.isms, "all along?"], ["I had no idea that", places.at.concat(places.in), "was", adverbs, adjectives, "... until this happened."], ["What's", adverbs, "going on behind the scenes at", places.at], ["What's", adverbs, "going on behind the scenes in", places.in], [nouns.celebs, "finally admits to being", adverbs, adjectives, "- what?!"], ["This", adjectives, nouns.objects.singular, "will", adverbs, "make you cry."]];
+	var titles = exports.titles = [["You won't believe what happened when", nouns.celebs, verbs.past, "this", adjectives, nouns.objects.singular], [numbers, "things that changed the way I think about", nouns.celebs.concat(nouns.objects.plural, places.at, places.in)], [numbers, "things we all love about", nouns.celebs.concat(nouns.objects.plural, places.at, places.in)], ["The truth behind", nouns.celebs.concat(nouns.objects.plural, places.at, places.in), "and", nouns.celebs.concat(nouns.objects.plural, places.at, places.in)], ["What really happened with the", nouns.objects.singular, "at", places.at], ["Scientists just discovered that", nouns.objects.plural, "are actually", adjectives, "- here's the proof"], ["Reports show that", nouns.objects.isms, "is secretly", adjectives, "- and the numbers don't lie"], ["Here's what happened when", nouns.celebs, verbs.past, nouns.celebs], [numbers, "reasons why researchers are saying NO to", nouns.objects.plural], ["Can being", adjectives, "actually change your life?", "True stories from", nouns.celebs], ["Has", nouns.objects.isms.concat(places.at, places.in), "actually been rooted in", nouns.objects.isms, "all along?"], ["I had no idea that", places.at.concat(places.in), "was actually", adjectives, "... until this happened."], ["What's really going on behind the scenes at", places.at], [nouns.celebs, "finally admits to being", adjectives, "- what?!"], ["This", adjectives, nouns.objects.singular, "will make you cry."], [places.at.concat(places.in), "is nothing but", nouns.objects.plural, "and", nouns.objects.plural, "- according to", nouns.celebs], ["Lifehack: 1 weird thing that all", adjectives, "people do"], ["Why everyone's talking about", nouns.objects.plural, "and", nouns.objects.isms], ["I didn't understand", nouns.objects.isms.concat(nouns.objects.plural), "until I met", nouns.celebs, " - EXCLUSIVE"], ["\"I can no longer deny my affiliation with", nouns.objects.isms, ",\" says", nouns.celebs], ["The secret to", verbs.gerunds, "while still being", adjectives]];
 
 	var descriptions = exports.descriptions = ["You'll be stunned.", "You won't believe it.", "Just wow.", "How can this be possible?", "... and why all of your friends are talking about it.", "... and why it's trending on Twitter.", "Whaaaaat?!", "Seriously, this is crazy.", "How is this still happening?", "Prepare to have your mind blown.", "How is nobody talking about this?", "What the media ISN\'T telling us.", "Yep, this is real.", "How is this real?", "I couldn't believe it."];
 

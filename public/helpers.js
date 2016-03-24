@@ -16,7 +16,7 @@ export const getImage = (query) => {
     req.onreadystatechange = () => {
       if (req.readyState == 4 && req.status == 200) {
         var results = JSON.parse(req.response)
-        var photo = results.photos.photo[1]
+        var photo = random(results.photos.photo)
         var imageURL = "https://farm" + photo.farm + ".staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + ".jpg"
         resolve(imageURL)
       }
@@ -25,4 +25,23 @@ export const getImage = (query) => {
     req.open("GET", "https://api.flickr.com/services/rest/?api_key=a41cd321041173cb1fbbc60866bb8fbc&method=flickr.photos.search&format=json&nojsoncallback=1&sort=relevance&per_page=10&text=" + query, true)
     req.send()
   })
+}
+
+export const getParamObj = (url) => {
+  let params = url.split('?')[1]
+  let paramObj = {}
+
+  if (params) {
+    params = params.split('&')
+
+    params.forEach(function(string) {
+      var key = string.split('=')[0]
+      var value = string.split('=')[1]
+      paramObj[key] = value
+    })
+
+    return paramObj
+  }
+
+  return null
 }

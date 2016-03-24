@@ -3,7 +3,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Firebase from 'firebase'
-import * as helper from './helpers.js'
+import * as helper from './helpers'
 import * as dictionary from './dictionary'
 
 let ref = new Firebase("https://clickbaiter.firebaseio.com/")
@@ -12,11 +12,31 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
+      gotcha: false,
       title: "",
       description: "",
       imageLink: "",
       siteName: "",
       shareLink: ""
+    }
+  }
+
+  componentWillMount() {
+    let paramObj = helper.getParamObj(location.href)
+    if (paramObj && paramObj.gotcha) {
+      ref.child("articles").child(paramObj.id).once("value", (snapshot) => {
+        if (snapshot.val()) {
+          console.log(snapshot.val())
+          this.setState({
+            gotcha: paramObj.gotcha,
+            title: snapshot.val().title,
+            description: snapshot.val().description,
+            imageLink: snapshot.val().imageLink,
+            shareLink: location.origin + "/article/" + snapshot.key(),
+            shareable: true
+          })
+        }
+      })
     }
   }
 
@@ -33,24 +53,25 @@ class App extends React.Component {
     this.setState({
       shareable: false,
       imageLink: ""
-    })
-
-    let title = helper.random(dictionary.titles).reduce((acc, n) => {
-      if (typeof n == "string") {
-        return acc + " " + n
-      } else {
-        var madLib = helper.getMadLib(n)
-        this.getImageLink(madLib)
-        return acc + " " + madLib
-      }
-    }, "")
-
-    this.setState({
-      title: title,
-      description: helper.random(dictionary.descriptions),
-      site_name: helper.random(dictionary.siteNames)
     }, () => {
-      this.renderBait()
+      let title = helper.random(dictionary.titles).reduce((acc, n) => {
+        if (typeof n == "string") {
+          return acc + " " + n
+        } else {
+          var madLib = helper.getMadLib(n)
+          return acc + " " + madLib
+        }
+      }, "")
+
+      this.getImageLink(helper.random(title.split(" ")))
+
+      this.setState({
+        title: title,
+        description: helper.random(dictionary.descriptions),
+        site_name: helper.random(dictionary.siteNames)
+      }, () => {
+        this.renderBait()
+      })
     })
   }
 
@@ -93,17 +114,34 @@ class App extends React.Component {
   getShareButton() {
     if (this.state.shareable) {
       return (
-        <button onClick={(e) => this.shareBait(e)}>go fish</button>
+        <div>
+          <button className="share facebook" onClick={(e) => this.shareBait(e)}>Facebook</button>
+          <a
+            className="twitter-share-button"
+            href={"https://twitter.com/intent/tweet?text=" + this.state.shareLink}
+            target="blank"
+            data-size="large">
+            <button className="share twitter" >Tweet it</button>
+          </a>
+        </div>
       )
     }
   }
 
   render() {
     return (
-      <form id="clickbait-generator">
-        <button onClick={(e) => this.getBait(e)}>give me some bait</button>
-        {this.getShareButton()}
-      </form>
+      <div>
+        <div className="preview" style={{backgroundImage: "url('" + this.state.imageLink + "')"}}>
+          <div className="previewText">
+            <h2 className="title">{this.state.title}</h2>
+            <h4 className="description">{this.state.description}</h4>
+          </div>
+        </div>
+        <form id="clickbait-generator">
+          <button className="baitMe" onClick={(e) => this.getBait(e)}>give me some bait</button>
+          {this.getShareButton()}
+        </form>
+      </div>
     )
   }
 }

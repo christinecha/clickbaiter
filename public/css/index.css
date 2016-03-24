@@ -1,34 +1,41 @@
 body, * {
   margin: 0 0 0 0;
   padding: 0 0 0 0;
-}
-
-a {
-  text-decoration: none;
-}
-
-.folio-row--outer {
-  margin: 0 auto;
+  font-family: "Helvetica Neue", sans-serif;
   text-align: center;
 }
 
-.folio-row--inner {
-  margin: 0 -10px;
-  text-align: center;
+button {
+  padding: 20px;
+  font-size: 16px;
+  border: none;
+  box-sizing: none;
+  background-color: #00aeef;
+  color: white;
+  font-weight: bold;
+  margin: 5px;
 }
 
-.folio-block {
-  display: inline-block;
-  vertical-align: top;
+.preview {
+  height: 300px;
+  width: 500px;
+  margin: 20px auto;
+  background-position: center;
+  background-size: cover;
+  position: relative;
 }
 
-.folio-block.linked:hover {
-  opacity: .8;
+.previewText {
+  background-color: rgba(255,255,255,0.9);
+  position: absolute;
+  width: 100%;
+  bottom: 0;
 }
 
-.folio-block--keywords {
-}
+.previewText h2 { text-transform: capitalize; }
 
-.folio-block--keyword {
-  display: inline-block;
+.previewText h2, .previewText h4 {
+  margin: 20px 0;
+  padding: 0 20px;
+  text-align: left;
 }
