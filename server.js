@@ -10,7 +10,7 @@ const ref = new Firebase("https://clickbaiter.firebaseio.com/")
 app.use(express.static(__dirname + '/public'))
 
 app.get('/', (req, res, next) => {
-  next()
+  req.send("hi")
 })
 
 app.get('/article/:key', (req, res) => {
