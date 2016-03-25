@@ -9,6 +9,10 @@ const ref = new Firebase("https://clickbaiter.firebaseio.com/")
 
 app.use(express.static(__dirname + '/public'))
 
+app.get('/', (req, res, next) => {
+  next()
+})
+
 app.get('/article/:key', (req, res) => {
 
   ref.child("articles").child(req.params.key).once("value", (snapshot) => {
