@@ -14,7 +14,6 @@ app.get('/', (req, res, next) => {
 })
 
 app.get('/article/:key', (req, res) => {
-
   ref.child("articles").child(req.params.key).once("value", (snapshot) => {
     var article = snapshot.val() || {
       description: "You won't believe it.",
