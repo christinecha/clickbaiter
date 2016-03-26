@@ -16,7 +16,12 @@ app.get('/', (req, res, next) => {
 app.get('/article/:key', (req, res) => {
 
   ref.child("articles").child(req.params.key).once("value", (snapshot) => {
-    var article = snapshot.val()
+    var article = snapshot.val() || {
+      description: "You won't believe it.",
+      imageLink: "https://farm4.staticflickr.com/3822/13856600645_1a8196a200.jpg",
+      site_name: "TheTruthDoctor.com",
+      title: " I had no idea that Russia was actually unhealthy ... until this happened."
+    }
     var url = "https://clickbaiter.herokuapp.com/article/" + req.params.key
 
     fs.readFile(__dirname + "/public/template.html", 'utf-8', (err, data) => {
