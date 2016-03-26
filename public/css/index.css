@@ -5,6 +5,10 @@ body, * {
   text-align: center;
 }
 
+*:focus {
+  outline: none;
+}
+
 button {
   padding: 20px;
   font-size: 16px;
@@ -16,6 +20,10 @@ button {
   color: white;
   font-weight: bold;
   margin: 20px;
+}
+
+button:hover {
+  background-color: #EF0091;
 }
 
 .gotcha {
