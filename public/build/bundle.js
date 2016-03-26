@@ -276,7 +276,7 @@
 	  }, {
 	    key: 'getGotcha',
 	    value: function getGotcha() {
-	      var countText = ["It's alright - this link has claimed ", _react2.default.createElement('span', { className: 'count', key: 1 }, this.state.clickCount), " other victims just like you."];
+	      var countText = ["It's alright - this link has claimed ", _react2.default.createElement('span', { className: 'count', key: 1 }, this.state.clickCount), " other victims just like you. "];
 
 	      if (this.state.gotcha) {
 	        return _react2.default.createElement('div', { className: 'gotcha' }, _react2.default.createElement('h3', null, 'Awww, you\'ve been clickbaited!'), _react2.default.createElement('p', null, this.state.clickCount > 1 ? countText : null, 'Get revenge by sharing some more of this crap on your newsfeed.'));
@@ -286,7 +286,7 @@
 	    key: 'getShareButton',
 	    value: function getShareButton() {
 	      if (this.state.shareable) {
-	        return _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'fb-share-button', 'data-href': this.state.shareLink, 'data-layout': 'button' }));
+	        return _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'fb-share-container' }, _react2.default.createElement('div', { className: 'fb-share-button', 'data-href': this.state.shareLink, 'data-layout': 'button' })), _react2.default.createElement('input', { className: 'link-display', value: this.state.shareLink, readOnly: true }));
 	      }
 	    }
 	  }, {

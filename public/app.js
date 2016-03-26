@@ -143,7 +143,7 @@ class App extends React.Component {
     let countText = [
       "It's alright - this link has claimed ",
       <span className="count" key={1}>{this.state.clickCount}</span>,
-      " other victims just like you."
+      " other victims just like you. "
     ]
 
     if (this.state.gotcha) {
@@ -163,7 +163,10 @@ class App extends React.Component {
     if (this.state.shareable) {
       return (
         <div>
-          <div className="fb-share-button" data-href={this.state.shareLink} data-layout="button"></div>
+          <div className="fb-share-container">
+            <div className="fb-share-button" data-href={this.state.shareLink} data-layout="button"></div>
+          </div>
+          <input className="link-display" value={this.state.shareLink} readOnly />
         </div>
       )
     }
