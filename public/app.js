@@ -40,6 +40,10 @@ class App extends React.Component {
     }
   }
 
+  componentDidUpdate() {
+    FB.XFBML.parse()
+  }
+
   getImageLink(query) {
     helper.getImage(query).then(imageLink => {
       this.setState({
@@ -103,22 +107,11 @@ class App extends React.Component {
     }
   }
 
-  shareBait(e) {
-    e.preventDefault()
-    FB.ui({
-      method: 'share_open_graph',
-      action_type: 'og.reads',
-      action_properties: JSON.stringify({
-        object: this.state.shareLink
-      })
-    }, function(response){});
-  }
-
   getShareButton() {
     if (this.state.shareable) {
       return (
         <div>
-          <button className="share facebook" onClick={(e) => this.shareBait(e)}>Facebook</button>
+          <div className="fb-share-button" data-href={this.state.shareLink} data-layout="button"></div>
           <a
             className="twitter-share-button"
             href={"https://twitter.com/intent/tweet?text=" + this.state.shareLink}

@@ -163,6 +163,11 @@
 	      }
 	    }
 	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate() {
+	      FB.XFBML.parse();
+	    }
+	  }, {
 	    key: 'getImageLink',
 	    value: function getImageLink(query) {
 	      var _this3 = this;
@@ -251,12 +256,8 @@
 	  }, {
 	    key: 'getShareButton',
 	    value: function getShareButton() {
-	      var _this6 = this;
-
 	      if (this.state.shareable) {
-	        return _react2.default.createElement('div', null, _react2.default.createElement('button', { className: 'share facebook', onClick: function onClick(e) {
-	            return _this6.shareBait(e);
-	          } }, 'Facebook'), _react2.default.createElement('a', {
+	        return _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'fb-share-button', 'data-href': this.state.shareLink, 'data-layout': 'button' }), _react2.default.createElement('a', {
 	          className: 'twitter-share-button',
 	          href: "https://twitter.com/intent/tweet?text=" + this.state.shareLink,
 	          target: 'blank',
@@ -266,10 +267,10 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this7 = this;
+	      var _this6 = this;
 
 	      return _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'preview', style: { backgroundImage: "url('" + this.state.imageLink + "')" } }, _react2.default.createElement('div', { className: 'previewText' }, _react2.default.createElement('h2', { className: 'title' }, this.state.title), _react2.default.createElement('h4', { className: 'description' }, this.state.description))), _react2.default.createElement('form', { id: 'clickbait-generator' }, _react2.default.createElement('button', { className: 'baitMe', onClick: function onClick(e) {
-	          return _this7.getBait(e);
+	          return _this6.getBait(e);
 	        } }, 'give me some bait'), this.getShareButton()));
 	    }
 	  }]);
