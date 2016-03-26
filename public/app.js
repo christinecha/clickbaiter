@@ -17,13 +17,14 @@ class App extends React.Component {
       description: "",
       imageLink: "",
       siteName: "",
-      shareLink: ""
+      shareLink: "",
+      clickCount: 0,
     }
   }
 
   componentWillMount() {
     let paramObj = helper.getParamObj(location.href)
-    if (paramObj && paramObj.gotcha) {
+    if (paramObj && paramObj.gotcha && paramObj.id) {
       ref.child("articles").child(paramObj.id).once("value", (snapshot) => {
         if (snapshot.val()) {
           console.log(snapshot.val())
@@ -33,8 +34,17 @@ class App extends React.Component {
             description: snapshot.val().description,
             imageLink: snapshot.val().imageLink,
             shareLink: location.origin + "/article/" + snapshot.key(),
-            shareable: true
+            shareable: true,
+            clickCount: snapshot.val().clickCount || 1
           })
+
+          if (snapshot.val().clickCount && typeof snapshot.val().clickCount == "number") {
+            ref.child("articles").child(paramObj.id).update({
+              clickCount: snapshot.val().clickCount + 1
+            })
+          } else {
+            ref.child("articles").child(paramObj.id).child("clickCount").set(1)
+          }
         }
       })
     }
@@ -112,7 +122,7 @@ class App extends React.Component {
       return (
         <div className="gotcha">
           <h3>Awww, you've been clickbaited!</h3>
-          <p>Get revenge by sharing some more of this crap on your newsfeed.</p>
+          <p>It's alright - this link has claimed <span className="count">{this.state.clickCount}</span> other victims just like you. Get revenge by sharing some more of this crap on your newsfeed.</p>
         </div>
       )
     }

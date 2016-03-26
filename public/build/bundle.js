@@ -135,7 +135,8 @@
 	      description: "",
 	      imageLink: "",
 	      siteName: "",
-	      shareLink: ""
+	      shareLink: "",
+	      clickCount: 0
 	    };
 	    return _this;
 	  }
@@ -146,7 +147,7 @@
 	      var _this2 = this;
 
 	      var paramObj = helper.getParamObj(location.href);
-	      if (paramObj && paramObj.gotcha) {
+	      if (paramObj && paramObj.gotcha && paramObj.id) {
 	        ref.child("articles").child(paramObj.id).once("value", function (snapshot) {
 	          if (snapshot.val()) {
 	            console.log(snapshot.val());
@@ -156,8 +157,17 @@
 	              description: snapshot.val().description,
 	              imageLink: snapshot.val().imageLink,
 	              shareLink: location.origin + "/article/" + snapshot.key(),
-	              shareable: true
+	              shareable: true,
+	              clickCount: snapshot.val().clickCount || 1
 	            });
+
+	            if (snapshot.val().clickCount && typeof snapshot.val().clickCount == "number") {
+	              ref.child("articles").child(paramObj.id).update({
+	                clickCount: snapshot.val().clickCount + 1
+	              });
+	            } else {
+	              ref.child("articles").child(paramObj.id).child("clickCount").set(1);
+	            }
 	          }
 	        });
 	      }
@@ -245,7 +255,7 @@
 	    key: 'getGotcha',
 	    value: function getGotcha() {
 	      if (this.state.gotcha) {
-	        return _react2.default.createElement('div', { className: 'gotcha' }, _react2.default.createElement('h3', null, 'Awww, you\'ve been clickbaited!'), _react2.default.createElement('p', null, 'Get revenge by sharing some more of this crap on your newsfeed.'));
+	        return _react2.default.createElement('div', { className: 'gotcha' }, _react2.default.createElement('h3', null, 'Awww, you\'ve been clickbaited!'), _react2.default.createElement('p', null, 'It\'s alright - this link has claimed ', _react2.default.createElement('span', { className: 'count' }, this.state.clickCount), ' other victims just like you. Get revenge by sharing some more of this crap on your newsfeed.'));
 	      }
 	    }
 	  }, {
