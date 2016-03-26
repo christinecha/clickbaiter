@@ -53,6 +53,24 @@ button {
   text-align: left;
 }
 
+#credits {
+  font-size: 11px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+#credits a {
+  color: #313132 !important;
+}
+
+#credits i {
+  font-size: 20px;
+  margin: 3px;
+  color: #313132 !important;
+}
+
+
+
 @media (max-width: 725px) {
   .site-title {
     font-size: 40px;
