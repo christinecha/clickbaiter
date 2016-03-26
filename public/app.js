@@ -107,18 +107,22 @@ class App extends React.Component {
     }
   }
 
+  getGotcha() {
+    if (this.state.gotcha) {
+      return (
+        <div className="gotcha">
+          <h3>Awww, you've been clickbaited!</h3>
+          <p>Get revenge by sharing some more of this crap on your newsfeed.</p>
+        </div>
+      )
+    }
+  }
+
   getShareButton() {
     if (this.state.shareable) {
       return (
         <div>
           <div className="fb-share-button" data-href={this.state.shareLink} data-layout="button"></div>
-          <a
-            className="twitter-share-button"
-            href={"https://twitter.com/intent/tweet?text=" + this.state.shareLink}
-            target="blank"
-            data-size="large">
-            <button className="share twitter" >Tweet it</button>
-          </a>
         </div>
       )
     }
@@ -127,6 +131,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        {this.getGotcha()}
+        <h3 className="site-title">clickbait generator</h3>
         <div className="preview" style={{backgroundImage: "url('" + this.state.imageLink + "')"}}>
           <div className="previewText">
             <h2 className="title">{this.state.title}</h2>
@@ -134,7 +140,7 @@ class App extends React.Component {
           </div>
         </div>
         <form id="clickbait-generator">
-          <button className="baitMe" onClick={(e) => this.getBait(e)}>give me some bait</button>
+          <button className="baitMe" onClick={(e) => this.getBait(e)}>generate some clickbait</button>
           {this.getShareButton()}
         </form>
       </div>

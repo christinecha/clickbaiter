@@ -242,26 +242,17 @@
 	      }
 	    }
 	  }, {
-	    key: 'shareBait',
-	    value: function shareBait(e) {
-	      e.preventDefault();
-	      FB.ui({
-	        method: 'share_open_graph',
-	        action_type: 'og.reads',
-	        action_properties: JSON.stringify({
-	          object: this.state.shareLink
-	        })
-	      }, function (response) {});
+	    key: 'getGotcha',
+	    value: function getGotcha() {
+	      if (this.state.gotcha) {
+	        return _react2.default.createElement('div', { className: 'gotcha' }, _react2.default.createElement('h3', null, 'Awww, you\'ve been clickbaited!'), _react2.default.createElement('p', null, 'Get revenge by sharing some more of this crap on your newsfeed.'));
+	      }
 	    }
 	  }, {
 	    key: 'getShareButton',
 	    value: function getShareButton() {
 	      if (this.state.shareable) {
-	        return _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'fb-share-button', 'data-href': this.state.shareLink, 'data-layout': 'button' }), _react2.default.createElement('a', {
-	          className: 'twitter-share-button',
-	          href: "https://twitter.com/intent/tweet?text=" + this.state.shareLink,
-	          target: 'blank',
-	          'data-size': 'large' }, _react2.default.createElement('button', { className: 'share twitter' }, 'Tweet it')));
+	        return _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'fb-share-button', 'data-href': this.state.shareLink, 'data-layout': 'button' }));
 	      }
 	    }
 	  }, {
@@ -269,9 +260,9 @@
 	    value: function render() {
 	      var _this6 = this;
 
-	      return _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'preview', style: { backgroundImage: "url('" + this.state.imageLink + "')" } }, _react2.default.createElement('div', { className: 'previewText' }, _react2.default.createElement('h2', { className: 'title' }, this.state.title), _react2.default.createElement('h4', { className: 'description' }, this.state.description))), _react2.default.createElement('form', { id: 'clickbait-generator' }, _react2.default.createElement('button', { className: 'baitMe', onClick: function onClick(e) {
+	      return _react2.default.createElement('div', null, this.getGotcha(), _react2.default.createElement('h3', { className: 'site-title' }, 'clickbait generator'), _react2.default.createElement('div', { className: 'preview', style: { backgroundImage: "url('" + this.state.imageLink + "')" } }, _react2.default.createElement('div', { className: 'previewText' }, _react2.default.createElement('h2', { className: 'title' }, this.state.title), _react2.default.createElement('h4', { className: 'description' }, this.state.description))), _react2.default.createElement('form', { id: 'clickbait-generator' }, _react2.default.createElement('button', { className: 'baitMe', onClick: function onClick(e) {
 	          return _this6.getBait(e);
-	        } }, 'give me some bait'), this.getShareButton()));
+	        } }, 'generate some clickbait'), this.getShareButton()));
 	    }
 	  }]);
 

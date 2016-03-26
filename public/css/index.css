@@ -1,7 +1,7 @@
 body, * {
   margin: 0 0 0 0;
   padding: 0 0 0 0;
-  font-family: "Helvetica Neue", sans-serif;
+  font-family: "Montserrat", sans-serif;
   text-align: center;
 }
 
@@ -9,11 +9,24 @@ button {
   padding: 20px;
   font-size: 16px;
   border: none;
+  border-radius: 30px;
+  width: 500px;
   box-sizing: none;
   background-color: #00aeef;
   color: white;
   font-weight: bold;
-  margin: 5px;
+  margin: 20px;
+}
+
+.gotcha {
+  padding: 20px;
+  background-color: rgba(255,255,0,0.8);
+}
+
+.site-title {
+  font-family: "Leckerli One", cursive;
+  font-size: 80px;
+  margin: 20px auto;
 }
 
 .preview {
@@ -38,4 +51,15 @@ button {
   margin: 20px 0;
   padding: 0 20px;
   text-align: left;
+}
+
+@media (max-width: 725px) {
+  .site-title {
+    font-size: 40px;
+  }
+
+  button, .preview {
+    width: 80%;
+    margin: 10px auto;
+  }
 }
