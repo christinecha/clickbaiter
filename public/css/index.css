@@ -83,8 +83,12 @@ button:hover {
 
 
 @media (max-width: 725px) {
+  body, * {
+    letter-spacing: -.03em;
+  }
+  
   .site-title {
-    font-size: 40px;
+    font-size: 30px;
   }
 
   button, .preview {

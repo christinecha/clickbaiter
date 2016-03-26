@@ -1,7 +1,7 @@
 "use strict"
 
 export const numbers =
-  ["7", "66", "500", "3", "4", "2", "80", "17", "99", "43"]
+  ["8", "4,000", "19", "34", "57", "7", "9", "66", "500", "3", "4", "2", "80", "17", "99", "43"]
 
 export const places = {
   at: ["the Vatican", "the White House", "the UN", "the Facebook office", "the Clinton Foundation", "the Oval Office", "Whole Foods"],
@@ -12,9 +12,9 @@ export const nouns =
   {
     celebs: ["Matt Damon", "Celine Dion", "Queen Elizabeth", "George Bush", "Andersoon Cooper", "Sarah Palin", "Neil DeGrasse Tyson", "Justin Bieber", "Pope Francis", "Brad Pitt", "Bill Cosby", "Albert Einstein", "the Illuminati", "Obama", "Donald Trump", "Jesus", "Jay-Z", "Beyonce", "Bernie Sanders", "Hillary Clinton", "Bill Gates", "Tupac", "Michael Jackson", "Vladimir Putin", "Caitlyn Jenner", "Mariah Carey", "Kanye West", "Ted Cruz", "Mark Zuckerberg", "Kim Kardashian", "the CIA", "the NSA", "Michelle Obama", "Drake", "Rihanna", "the Supreme Court", "the 99%", "Florida Man", "Taylor Swift", "Bill Nye"],
     objects: {
-      plural: ["teachers", "New Yorkers", "shoes", "children", "aliens", "oatmeal cookies", "votes", "chairs", "celebrities", "immigrants", "toxins", "chemicals", "chemtrails", "coconuts", "Democrats", "Republicans", "humans", "dogs", "CEOs", "kids", "scientists", "iPhones", "police officers", "hypochondriacs"],
-      singular: ["high school math teacher", "woman", "dad", "child", "boy", "feminist", "teenager", "kitten", "activist", "protester", "vegan", "student", "refugee", "CEO", "priest", "capitalist", "entrepreneur", "veteran", "social worker", "miracle doctor", "porn actor", "undercover cop", "baby", "taxi driver"],
-      isms: ["yoga", "hypnotism", "communism", "feminism", "homophobia", "misogyny", "body odor", "the Internet", "intellectualism", "religion", "veganism", "fascism", "socialism", "addiction", "tax evasion", "fracking", "soylent", "science", "Scientology", "Mormonism", "the military", "jazz", "dubstep", "social media", "the 1%", "Corporate America", "fraud"]
+      plural: ["couples", "teachers", "New Yorkers", "shoes", "children", "aliens", "oatmeal cookies", "votes", "chairs", "celebrities", "immigrants", "toxins", "chemicals", "chemtrails", "coconuts", "Democrats", "Republicans", "humans", "dogs", "CEOs", "kids", "scientists", "iPhones", "police officers", "hypochondriacs"],
+      singular: ["couple", "high school math teacher", "woman", "dad", "child", "boy", "feminist", "teenager", "kitten", "activist", "protester", "vegan", "student", "refugee", "CEO", "priest", "capitalist", "entrepreneur", "veteran", "social worker", "miracle doctor", "porn actor", "undercover cop", "baby", "taxi driver"],
+      isms: ["yoga", "Catholicism", "government surveillance", "professional sports", "hypnotism", "communism", "feminism", "homophobia", "misogyny", "body odor", "the Internet", "intellectualism", "religion", "veganism", "fascism", "socialism", "addiction", "tax evasion", "fracking", "soylent", "science", "Scientology", "Mormonism", "the military", "jazz", "dubstep", "social media", "the 1%", "Corporate America", "fraud"]
     }
   }
 
@@ -60,7 +60,10 @@ export const titles =
     ["The secret to", verbs.gerunds, "while still being", adjectives],
     ["Did you know that", verbs.gerunds, "is making", places.in, "more", adjectives, "every day?"],
     ["The real problem is", nouns.objects.isms.concat(places.at), "- says", nouns.celebs],
-    ["F***", nouns.objects.isms.concat(places.at, nouns.objects.plural, verbs.gerunds), "- says", nouns.celebs]
+    ["F***", nouns.objects.isms.concat(places.at, nouns.objects.plural, verbs.gerunds), "- says", nouns.celebs],
+    ["Dear", nouns.celebs, "- an open letter regarding", nouns.objects.isms.concat(nouns.objects.plural)],
+    ["When this", nouns.objects.singular, "met", nouns.celebs, "- you'll never guess what happened next."],
+    [numbers, "things we all secretly hate about", nouns.celebs.concat(nouns.objects.plural, places.at, places.in), "- number 2 is so accurate!"]
   ]
 
 export const descriptions =
@@ -79,5 +82,10 @@ export const descriptions =
     "What the media ISN\'T telling us.",
     "Yep, this is real.",
     "How is this real?",
-    "I couldn't believe it."
+    "I couldn't believe it.",
+    "This is crazy!",
+    "What is the world coming to?",
+    "I am so glad this is real.",
+    "I couldn't believe it.",
+    "... and why the media REFUSES to talk about it."
   ]
