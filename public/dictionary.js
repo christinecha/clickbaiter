@@ -10,22 +10,22 @@ export const places = {
 
 export const nouns =
   {
-    celebs: ["Andersoon Cooper", "Sarah Palin", "Neil DeGrasse Tyson", "Justin Bieber", "Pope Francis", "Brad Pitt", "Bill Cosby", "Albert Einstein", "the Illuminati", "Obama", "Donald Trump", "Jesus", "Jay-Z", "Beyonce", "Bernie Sanders", "Hillary Clinton", "Bill Gates", "Tupac", "Michael Jackson", "Vladimir Putin", "Caitlyn Jenner", "Mariah Carey", "Kanye West", "Ted Cruz", "Mark Zuckerberg", "Kim Kardashian", "the CIA", "the NSA", "Michelle Obama", "Drake", "Rihanna", "the Supreme Court", "the 99%", "Florida Man", "Taylor Swift", "Bill Nye"],
+    celebs: ["Matt Damon", "Celine Dion", "Queen Elizabeth", "George Bush", "Andersoon Cooper", "Sarah Palin", "Neil DeGrasse Tyson", "Justin Bieber", "Pope Francis", "Brad Pitt", "Bill Cosby", "Albert Einstein", "the Illuminati", "Obama", "Donald Trump", "Jesus", "Jay-Z", "Beyonce", "Bernie Sanders", "Hillary Clinton", "Bill Gates", "Tupac", "Michael Jackson", "Vladimir Putin", "Caitlyn Jenner", "Mariah Carey", "Kanye West", "Ted Cruz", "Mark Zuckerberg", "Kim Kardashian", "the CIA", "the NSA", "Michelle Obama", "Drake", "Rihanna", "the Supreme Court", "the 99%", "Florida Man", "Taylor Swift", "Bill Nye"],
     objects: {
       plural: ["teachers", "New Yorkers", "shoes", "children", "aliens", "oatmeal cookies", "votes", "chairs", "celebrities", "immigrants", "toxins", "chemicals", "chemtrails", "coconuts", "Democrats", "Republicans", "humans", "dogs", "CEOs", "kids", "scientists", "iPhones", "police officers", "hypochondriacs"],
       singular: ["high school math teacher", "woman", "dad", "child", "boy", "feminist", "teenager", "kitten", "activist", "protester", "vegan", "student", "refugee", "CEO", "priest", "capitalist", "entrepreneur", "veteran", "social worker", "miracle doctor", "porn actor", "undercover cop", "baby", "taxi driver"],
-      isms: ["yoga", "hypnotism", "communism", "feminism", "homophobia", "misogyny", "body odor", "the Internet", "intellectualism", "religion", "veganism", "fascism", "socialism", "addiction", "tax evasion", "fracking", "soylent", "science", "Scientology", "Mormonism", "military", "jazz", "dubstep", "social media", "the 1%", "Corporate America", "fraud"]
+      isms: ["yoga", "hypnotism", "communism", "feminism", "homophobia", "misogyny", "body odor", "the Internet", "intellectualism", "religion", "veganism", "fascism", "socialism", "addiction", "tax evasion", "fracking", "soylent", "science", "Scientology", "Mormonism", "the military", "jazz", "dubstep", "social media", "the 1%", "Corporate America", "fraud"]
     }
   }
 
 export const verbs =
   {
-    past: ["signed a contract with", "made a deal with", "met with", "found out about", "embarrassed", "worked with", "exposed", "avoided", "insulted", "LIED to", "was seen with", "got caught with", "pissed off", "tricked", "came clean to", "sat next to", "had a secret meeting with"],
+    past: ["spied on", "signed a contract with", "made a deal with", "met with", "found out about", "embarrassed", "worked with", "exposed", "avoided", "insulted", "LIED to", "was seen with", "got caught with", "pissed off", "tricked", "came clean to", "sat next to", "had a secret meeting with"],
     gerunds: ["making millions", "living", "doing yoga", "meditating", "eating kale", "doing crossfit", "voting", "smoking weed", "lying", "breathing", "making money"]
   }
 
 export const adjectives =
-  ["sex-crazed", "greedy", "dangerous", "unhealthy", "amazing", "Republican", "unsuspecting", "sexist", "money-hungry", "liberal", "racist", "feminist", "gay", "harmful", "toxic", "vegan", "violent", "biased", "depressed", "misogynist", "shocking", "homeless", "terrible", "evil", "miraculous", "American", "Western"]
+  ["sex-crazed", "greedy", "dangerous", "unhealthy", "amazing", "armed", "angry", "poor", "Republican", "lesbian", "unsuspecting", "sexist", "money-hungry", "liberal", "racist", "feminist", "gay", "harmful", "toxic", "vegan", "violent", "biased", "depressed", "misogynist", "shocking", "homeless", "terrible", "evil", "miraculous", "American", "Western"]
 
 export const siteNames =
   [
@@ -58,7 +58,9 @@ export const titles =
     ["I didn't understand", nouns.objects.isms.concat(nouns.objects.plural), "until I met", nouns.celebs, " - EXCLUSIVE"],
     ["\"I can no longer deny my affiliation with", nouns.objects.isms, ",\" says", nouns.celebs],
     ["The secret to", verbs.gerunds, "while still being", adjectives],
-    ["Did you know that", verbs.gerunds, "is making", places.in, "more", adjectives, "every day?"]
+    ["Did you know that", verbs.gerunds, "is making", places.in, "more", adjectives, "every day?"],
+    ["The real problem is", nouns.objects.isms.concat(places.at), "- says", nouns.celebs],
+    ["F***", nouns.objects.isms.concat(places.at, nouns.objects.plural, verbs.gerunds), "- says", nouns.celebs]
   ]
 
 export const descriptions =
