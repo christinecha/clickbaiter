@@ -47,7 +47,7 @@ export const titles =
     ["Here's what happened when", nouns.celebs, verbs.past, nouns.celebs],
     [numbers, "reasons why researchers are saying NO to", nouns.objects.plural],
     ["Can being", adjectives, "actually change your life?", "True stories from", nouns.celebs],
-    ["Has", nouns.objects.isms.concat(places.at, places.in), "actually been rooted in", nouns.objects.isms, "all along?"],
+    ["Has", nouns.objects.isms.concat(places.at, places.in), "actually just been a vehicle for", nouns.objects.isms, "all along?"],
     ["I had no idea that", places.at.concat(places.in), "was actually", adjectives, "... until this happened."],
     ["What's really going on behind the scenes at", places.at],
     [nouns.celebs, "finally admits to being", adjectives, "- what?!"],

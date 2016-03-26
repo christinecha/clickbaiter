@@ -183,23 +183,29 @@
 	        shareable: false,
 	        imageLink: ""
 	      }, function () {
+	        var imageQueryOptions = [];
+
 	        var title = helper.random(dictionary.titles).reduce(function (acc, n) {
 	          if (typeof n == "string") {
 	            return acc + " " + n;
 	          } else {
 	            var madLib = helper.getMadLib(n);
+	            imageQueryOptions.push(madLib);
 	            return acc + " " + madLib;
 	          }
 	        }, "");
 
-	        _this4.getImageLink(helper.random(title.split(" ")));
+	        var randomImageQuery = helper.random(imageQueryOptions);
 
-	        _this4.setState({
-	          title: title,
-	          description: helper.random(dictionary.descriptions),
-	          site_name: helper.random(dictionary.siteNames)
-	        }, function () {
-	          _this4.renderBait();
+	        helper.getImage(randomImageQuery).then(function (imageLink) {
+	          _this4.setState({
+	            title: title,
+	            description: helper.random(dictionary.descriptions),
+	            site_name: helper.random(dictionary.siteNames),
+	            imageLink: imageLink || _this4.state.imageLink
+	          }, function () {
+	            _this4.renderBait();
+	          });
 	        });
 	      });
 	    }
@@ -210,28 +216,25 @@
 
 	      var count = 0;
 
-	      var timeout = setInterval(function () {
-	        if (_this5.state.imageLink.length < 10 && count < 100) {
-	          count++;
-	        } else if (_this5.state.imageLink.length > 10) {
-	          (function () {
-	            clearInterval(timeout);
-	            var newKey = ref.child("articles").push({
-	              title: _this5.state.title,
-	              description: _this5.state.description,
-	              imageLink: _this5.state.imageLink,
-	              site_name: _this5.state.site_name
-	            }, function () {
-	              _this5.setState({
-	                shareLink: location.origin + "/article/" + newKey.key(),
-	                shareable: true
-	              });
+	      if (this.state.imageLink.length > 10) {
+	        (function () {
+	          console.log('1');
+	          var newKey = ref.child("articles").push({
+	            title: _this5.state.title,
+	            description: _this5.state.description,
+	            imageLink: _this5.state.imageLink,
+	            site_name: _this5.state.site_name
+	          }, function () {
+	            console.log('2');
+	            _this5.setState({
+	              shareLink: location.origin + "/article/" + newKey.key(),
+	              shareable: true
 	            });
-	          })();
-	        } else {
-	          clearInterval(timeout);
-	        }
-	      }, 10);
+	          });
+	        })();
+	      } else {
+	        console.log('failed to connect. can you try again?');
+	      }
 	    }
 	  }, {
 	    key: 'shareBait',
@@ -20181,6 +20184,7 @@
 	};
 
 	var getImage = exports.getImage = function getImage(query) {
+	  console.log("called getImage:", query);
 	  return new Promise(function (resolve, reject) {
 	    var req = new XMLHttpRequest();
 
@@ -20188,12 +20192,13 @@
 	      if (req.readyState == 4 && req.status == 200) {
 	        var results = JSON.parse(req.response);
 	        var photo = random(results.photos.photo);
+	        console.log("got image");
 	        var imageURL = "https://farm" + photo.farm + ".staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + ".jpg";
 	        resolve(imageURL);
 	      }
 	    };
 
-	    req.open("GET", "https://api.flickr.com/services/rest/?api_key=a41cd321041173cb1fbbc60866bb8fbc&method=flickr.photos.search&format=json&nojsoncallback=1&sort=relevance&per_page=10&text=" + query, true);
+	    req.open("GET", "https://api.flickr.com/services/rest/?api_key=a41cd321041173cb1fbbc60866bb8fbc&method=flickr.photos.search&format=json&nojsoncallback=1&sort=relevance&per_page=2&text=" + query, true);
 	    req.send();
 	  });
 	};
@@ -20251,7 +20256,7 @@
 
 	var siteNames = exports.siteNames = ["THETRUTH.ORG", "TheTruthDoctor.com", "SignEverySinglePetition.org", "YES.com"];
 
-	var titles = exports.titles = [["You won't believe what happened when", nouns.celebs, verbs.past, "this", adjectives, nouns.objects.singular], [numbers, "things that changed the way I think about", nouns.celebs.concat(nouns.objects.plural, places.at, places.in)], [numbers, "things we all love about", nouns.celebs.concat(nouns.objects.plural, places.at, places.in)], ["The truth behind", nouns.celebs.concat(nouns.objects.plural, places.at, places.in), "and", nouns.celebs.concat(nouns.objects.plural, places.at, places.in)], ["What really happened with the", nouns.objects.singular, "at", places.at], ["Scientists just discovered that", nouns.objects.plural, "are actually", adjectives, "- here's the proof"], ["Reports show that", nouns.objects.isms, "is secretly", adjectives, "- and the numbers don't lie"], ["Here's what happened when", nouns.celebs, verbs.past, nouns.celebs], [numbers, "reasons why researchers are saying NO to", nouns.objects.plural], ["Can being", adjectives, "actually change your life?", "True stories from", nouns.celebs], ["Has", nouns.objects.isms.concat(places.at, places.in), "actually been rooted in", nouns.objects.isms, "all along?"], ["I had no idea that", places.at.concat(places.in), "was actually", adjectives, "... until this happened."], ["What's really going on behind the scenes at", places.at], [nouns.celebs, "finally admits to being", adjectives, "- what?!"], ["This", adjectives, nouns.objects.singular, "will make you cry."], [places.at.concat(places.in), "is nothing but", nouns.objects.plural, "and", nouns.objects.plural, "- according to", nouns.celebs], ["Lifehack: 1 weird thing that all", adjectives, "people do"], ["Why everyone's talking about", nouns.objects.plural, "and", nouns.objects.isms], ["I didn't understand", nouns.objects.isms.concat(nouns.objects.plural), "until I met", nouns.celebs, " - EXCLUSIVE"], ["\"I can no longer deny my affiliation with", nouns.objects.isms, ",\" says", nouns.celebs], ["The secret to", verbs.gerunds, "while still being", adjectives]];
+	var titles = exports.titles = [["You won't believe what happened when", nouns.celebs, verbs.past, "this", adjectives, nouns.objects.singular], [numbers, "things that changed the way I think about", nouns.celebs.concat(nouns.objects.plural, places.at, places.in)], [numbers, "things we all love about", nouns.celebs.concat(nouns.objects.plural, places.at, places.in)], ["The truth behind", nouns.celebs.concat(nouns.objects.plural, places.at, places.in), "and", nouns.celebs.concat(nouns.objects.plural, places.at, places.in)], ["What really happened with the", nouns.objects.singular, "at", places.at], ["Scientists just discovered that", nouns.objects.plural, "are actually", adjectives, "- here's the proof"], ["Reports show that", nouns.objects.isms, "is secretly", adjectives, "- and the numbers don't lie"], ["Here's what happened when", nouns.celebs, verbs.past, nouns.celebs], [numbers, "reasons why researchers are saying NO to", nouns.objects.plural], ["Can being", adjectives, "actually change your life?", "True stories from", nouns.celebs], ["Has", nouns.objects.isms.concat(places.at, places.in), "actually just been a vehicle for", nouns.objects.isms, "all along?"], ["I had no idea that", places.at.concat(places.in), "was actually", adjectives, "... until this happened."], ["What's really going on behind the scenes at", places.at], [nouns.celebs, "finally admits to being", adjectives, "- what?!"], ["This", adjectives, nouns.objects.singular, "will make you cry."], [places.at.concat(places.in), "is nothing but", nouns.objects.plural, "and", nouns.objects.plural, "- according to", nouns.celebs], ["Lifehack: 1 weird thing that all", adjectives, "people do"], ["Why everyone's talking about", nouns.objects.plural, "and", nouns.objects.isms], ["I didn't understand", nouns.objects.isms.concat(nouns.objects.plural), "until I met", nouns.celebs, " - EXCLUSIVE"], ["\"I can no longer deny my affiliation with", nouns.objects.isms, ",\" says", nouns.celebs], ["The secret to", verbs.gerunds, "while still being", adjectives]];
 
 	var descriptions = exports.descriptions = ["You'll be stunned.", "You won't believe it.", "Just wow.", "How can this be possible?", "... and why all of your friends are talking about it.", "... and why it's trending on Twitter.", "Whaaaaat?!", "Seriously, this is crazy.", "How is this still happening?", "Prepare to have your mind blown.", "How is nobody talking about this?", "What the media ISN\'T telling us.", "Yep, this is real.", "How is this real?", "I couldn't believe it."];
 

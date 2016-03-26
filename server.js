@@ -17,7 +17,7 @@ app.get('/article/:key', (req, res) => {
 
   ref.child("articles").child(req.params.key).once("value", (snapshot) => {
     var article = snapshot.val()
-    var url = "https://495e711e.ngrok.io/article/" + req.params.key
+    var url = "https://clickbaiter.herokuapp.com/article/" + req.params.key
 
     fs.readFile(__dirname + "/public/template.html", 'utf-8', (err, data) => {
       var html = data

@@ -54,23 +54,29 @@ class App extends React.Component {
       shareable: false,
       imageLink: ""
     }, () => {
+      let imageQueryOptions = []
+
       let title = helper.random(dictionary.titles).reduce((acc, n) => {
         if (typeof n == "string") {
           return acc + " " + n
         } else {
           var madLib = helper.getMadLib(n)
+          imageQueryOptions.push(madLib)
           return acc + " " + madLib
         }
       }, "")
 
-      this.getImageLink(helper.random(title.split(" ")))
+      let randomImageQuery = helper.random(imageQueryOptions)
 
-      this.setState({
-        title: title,
-        description: helper.random(dictionary.descriptions),
-        site_name: helper.random(dictionary.siteNames)
-      }, () => {
-        this.renderBait()
+      helper.getImage(randomImageQuery).then(imageLink => {
+        this.setState({
+          title: title,
+          description: helper.random(dictionary.descriptions),
+          site_name: helper.random(dictionary.siteNames),
+          imageLink: imageLink || this.state.imageLink
+        }, () => {
+          this.renderBait()
+        })
       })
     })
   }
@@ -78,26 +84,23 @@ class App extends React.Component {
   renderBait() {
     let count = 0
 
-    let timeout = setInterval(() => {
-      if (this.state.imageLink.length < 10 && count < 100) {
-        count ++
-      } else if (this.state.imageLink.length > 10){
-        clearInterval(timeout)
-        let newKey = ref.child("articles").push({
-          title: this.state.title,
-          description: this.state.description,
-          imageLink: this.state.imageLink,
-          site_name: this.state.site_name
-        }, () => {
-          this.setState({
-            shareLink: location.origin + "/article/" + newKey.key(),
-            shareable: true
-          })
+    if (this.state.imageLink.length > 10){
+      console.log('1')
+      let newKey = ref.child("articles").push({
+        title: this.state.title,
+        description: this.state.description,
+        imageLink: this.state.imageLink,
+        site_name: this.state.site_name
+      }, () => {
+        console.log('2')
+        this.setState({
+          shareLink: location.origin + "/article/" + newKey.key(),
+          shareable: true
         })
-      } else {
-        clearInterval(timeout)
-      }
-    }, 10)
+      })
+    } else {
+      console.log('failed to connect. can you try again?')
+    }
   }
 
   shareBait(e) {
