@@ -86,7 +86,11 @@ button:hover {
   body, * {
     letter-spacing: -.03em;
   }
-  
+
+  .desktop-only {
+    display: none;
+  }
+
   .site-title {
     font-size: 30px;
   }

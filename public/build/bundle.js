@@ -124,6 +124,9 @@
 	var App = function (_React$Component) {
 	  _inherits(App, _React$Component);
 
+	  // Set up the state template. Not using null values so in the worst case scenario, it
+	  // would just print wrong information rather than breaking completely.
+
 	  function App() {
 	    _classCallCheck(this, App);
 
@@ -146,35 +149,54 @@
 	    value: function componentWillMount() {
 	      var _this2 = this;
 
+	      // Parse the URL and return the params in a neat little object.
 	      var paramObj = helper.getParamObj(location.href);
+
+	      // Check if the URL is one from a click-through path (gotcha: true, id: 1234)
+	      // This will not break if there are no matching params.
 	      if (paramObj && paramObj.gotcha && paramObj.id) {
+
+	        // Grab the matching article data by id from Firebase.
 	        ref.child("articles").child(paramObj.id).once("value", function (snapshot) {
+
+	          // If the article actually exists in the database:
 	          if (snapshot.val()) {
-	            console.log(snapshot.val());
+
+	            // Set the state with all the matching keys.
+	            // Added || operands to protect against null values.
 	            _this2.setState({
-	              gotcha: paramObj.gotcha,
-	              title: snapshot.val().title,
-	              description: snapshot.val().description,
-	              imageLink: snapshot.val().imageLink,
+	              gotcha: true,
+	              title: snapshot.val().title || "",
+	              description: snapshot.val().description || "",
+	              imageLink: snapshot.val().imageLink || "",
 	              shareLink: location.origin + "/article/" + snapshot.key(),
 	              shareable: true,
 	              clickCount: snapshot.val().clickCount || 1
 	            });
 
+	            // If clickCount exists and it's a number, then add 1.
 	            if (snapshot.val().clickCount && typeof snapshot.val().clickCount == "number") {
 	              ref.child("articles").child(paramObj.id).update({
 	                clickCount: snapshot.val().clickCount + 1
 	              });
 	            } else {
+	              // Otherwise, set it to 1.
 	              ref.child("articles").child(paramObj.id).child("clickCount").set(1);
 	            }
-	          }
+
+	            // If the params exist (gotcha and id) but there is no article data for that id,
+	            // still make "gotcha" true -- just generate new bait.
+	          } else {
+	              _this2.setState({ gotcha: true });
+	              _this2.getBait();
+	            }
 	        });
 	      }
 	    }
 	  }, {
 	    key: 'componentDidUpdate',
 	    value: function componentDidUpdate() {
+	      // This makes sure that everytime we update the component, the FB data does too.
 	      FB.XFBML.parse();
 	    }
 	  }, {
@@ -193,7 +215,7 @@
 	    value: function getBait(e) {
 	      var _this4 = this;
 
-	      e.preventDefault();
+	      if (e) e.preventDefault();
 	      this.setState({
 	        shareable: false,
 	        imageLink: ""
@@ -254,8 +276,10 @@
 	  }, {
 	    key: 'getGotcha',
 	    value: function getGotcha() {
+	      var countText = ["It's alright - this link has claimed ", _react2.default.createElement('span', { className: 'count', key: 1 }, this.state.clickCount), " other victims just like you."];
+
 	      if (this.state.gotcha) {
-	        return _react2.default.createElement('div', { className: 'gotcha' }, _react2.default.createElement('h3', null, 'Awww, you\'ve been clickbaited!'), _react2.default.createElement('p', null, 'It\'s alright - this link has claimed ', _react2.default.createElement('span', { className: 'count' }, this.state.clickCount), ' other victims just like you. Get revenge by sharing some more of this crap on your newsfeed.'));
+	        return _react2.default.createElement('div', { className: 'gotcha' }, _react2.default.createElement('h3', null, 'Awww, you\'ve been clickbaited!'), _react2.default.createElement('p', null, this.state.clickCount > 1 ? countText : null, 'Get revenge by sharing some more of this crap on your newsfeed.'));
 	      }
 	    }
 	  }, {
