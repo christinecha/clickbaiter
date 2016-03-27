@@ -125,7 +125,8 @@ class App extends React.Component {
         title: this.state.title,
         description: this.state.description,
         imageLink: this.state.imageLink,
-        site_name: this.state.site_name
+        site_name: this.state.site_name,
+        createdAt: Firebase.ServerValue.TIMESTAMP
       }, () => {
         this.setState({
           shareLink: location.origin + "/article/" + newKey.key(),

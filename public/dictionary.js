@@ -5,27 +5,27 @@ export const numbers =
 
 export const places = {
   at: ["the Vatican", "the White House", "the UN", "the Facebook office", "the Clinton Foundation", "the Oval Office", "Whole Foods"],
-  in: ["Alaska", "your apartment", "New York City", "the future", "Canada", "Saudi Arabia", "France", "New Jersey", "Washington", "Russia", "Silicon Valley", "North Korea", "outer space", "Capitalist America", "Mexico", "the military"]
+  in: ["cyberspace", "Alaska", "your apartment", "New York City", "the future", "Canada", "Saudi Arabia", "France", "New Jersey", "Washington", "Russia", "Silicon Valley", "North Korea", "outer space", "Capitalist America", "Mexico", "the military"]
 }
 
 export const nouns =
   {
-    celebs: ["Matt Damon", "Celine Dion", "Queen Elizabeth", "George Bush", "Andersoon Cooper", "Sarah Palin", "Neil DeGrasse Tyson", "Justin Bieber", "Pope Francis", "Brad Pitt", "Bill Cosby", "Albert Einstein", "the Illuminati", "Obama", "Donald Trump", "Jesus", "Jay-Z", "Beyonce", "Bernie Sanders", "Hillary Clinton", "Bill Gates", "Tupac", "Michael Jackson", "Vladimir Putin", "Caitlyn Jenner", "Mariah Carey", "Kanye West", "Ted Cruz", "Mark Zuckerberg", "Kim Kardashian", "the CIA", "the NSA", "Michelle Obama", "Drake", "Rihanna", "the Supreme Court", "the 99%", "Florida Man", "Taylor Swift", "Bill Nye"],
+    celebs: ["Hulk Hogan", "Matt Damon", "Celine Dion", "Queen Elizabeth", "George Bush", "Andersoon Cooper", "Sarah Palin", "Neil DeGrasse Tyson", "Justin Bieber", "Pope Francis", "Brad Pitt", "Bill Cosby", "Albert Einstein", "the Illuminati", "Obama", "Donald Trump", "Jesus", "Jay-Z", "Beyonce", "Bernie Sanders", "Hillary Clinton", "Bill Gates", "Tupac", "Michael Jackson", "Vladimir Putin", "Caitlyn Jenner", "Mariah Carey", "Kanye West", "Ted Cruz", "Mark Zuckerberg", "Kim Kardashian", "the CIA", "the NSA", "Michelle Obama", "Drake", "Rihanna", "the Supreme Court", "the 99%", "Florida Man", "Taylor Swift", "Bill Nye"],
     objects: {
       plural: ["couples", "teachers", "New Yorkers", "shoes", "children", "aliens", "oatmeal cookies", "votes", "chairs", "celebrities", "immigrants", "toxins", "chemicals", "chemtrails", "coconuts", "Democrats", "Republicans", "humans", "dogs", "CEOs", "kids", "scientists", "iPhones", "police officers", "hypochondriacs"],
       singular: ["couple", "high school math teacher", "woman", "dad", "child", "boy", "feminist", "teenager", "kitten", "activist", "protester", "vegan", "student", "refugee", "CEO", "priest", "capitalist", "entrepreneur", "veteran", "social worker", "miracle doctor", "porn actor", "undercover cop", "baby", "taxi driver"],
-      isms: ["yoga", "Catholicism", "government surveillance", "professional sports", "hypnotism", "communism", "feminism", "homophobia", "misogyny", "body odor", "the Internet", "intellectualism", "religion", "veganism", "fascism", "socialism", "addiction", "tax evasion", "fracking", "soylent", "science", "Scientology", "Mormonism", "the military", "jazz", "dubstep", "social media", "the 1%", "Corporate America", "fraud"]
+      isms: ["professional wrestling", "yoga", "Catholicism", "government surveillance", "professional sports", "hypnotism", "communism", "feminism", "homophobia", "misogyny", "body odor", "the Internet", "intellectualism", "religion", "veganism", "fascism", "socialism", "addiction", "tax evasion", "fracking", "soylent", "science", "Scientology", "Mormonism", "the military", "jazz", "dubstep", "social media", "the 1%", "Corporate America", "fraud"]
     }
   }
 
 export const verbs =
   {
-    past: ["spied on", "signed a contract with", "made a deal with", "met with", "found out about", "embarrassed", "worked with", "exposed", "avoided", "insulted", "LIED to", "was seen with", "got caught with", "pissed off", "tricked", "came clean to", "sat next to", "had a secret meeting with"],
+    past: ["got caught red-handed by", "spied on", "signed a contract with", "made a deal with", "met with", "found out about", "embarrassed", "worked with", "exposed", "avoided", "insulted", "LIED to", "was seen with", "got caught with", "pissed off", "tricked", "came clean to", "sat next to", "had a secret meeting with"],
     gerunds: ["making millions", "living", "doing yoga", "meditating", "eating kale", "doing crossfit", "voting", "smoking weed", "lying", "breathing", "making money"]
   }
 
 export const adjectives =
-  ["sex-crazed", "sleazy", "greedy", "dangerous", "unhealthy", "amazing", "armed", "angry", "poor", "Republican", "lesbian", "unsuspecting", "sexist", "money-hungry", "liberal", "racist", "feminist", "gay", "harmful", "toxic", "vegan", "violent", "biased", "depressed", "misogynist", "shocking", "homeless", "terrible", "evil", "miraculous", "American", "Western"]
+  ["sex-crazed", "sleazy", "celebrated", "beloved", "greedy", "dangerous", "unhealthy", "amazing", "armed", "angry", "poor", "Republican", "lesbian", "unsuspecting", "sexist", "money-hungry", "liberal", "racist", "feminist", "gay", "harmful", "toxic", "vegan", "violent", "biased", "depressed", "misogynist", "shocking", "homeless", "terrible", "evil", "miraculous", "American", "Western"]
 
 export const siteNames =
   [
