@@ -42,7 +42,7 @@ button:hover {
 }
 
 .preview {
-  height: 300px;
+  height: 400px;
   width: 500px;
   margin: 10px auto;
   background-position: center;
@@ -72,25 +72,32 @@ button:hover {
 }
 
 .link-display {
-  padding: 2px;
+  padding: 2px 4px;
   width: 300px;
+  border: none;
+  border-bottom: 2px solid #00aeef;
+  background-color: #f4f4f5;
 }
+
+.share-note { font-size: 12px; margin: 0 20px; }
+.share-note .highlighted { font-size: 14px; font-weight: bold;}
 
 #credits {
   font-size: 11px;
   margin-top: 50px;
   padding: 30px 0;
   background-color: #f1f1f2;
+  color: #616162;
 }
 
 #credits a {
-  color: #313132 !important;
+  color: #616162 !important;
 }
 
 #credits i {
   font-size: 20px;
   margin: 3px;
-  color: #313132 !important;
+  color: #616162 !important;
 }
 
 @media (max-width: 725px) {

@@ -76,22 +76,20 @@ class App extends React.Component {
     FB.XFBML.parse()
   }
 
-  getImageLink(query) {
-    helper.getImage(query).then(imageLink => {
-      this.setState({
-        imageLink: imageLink || this.state.imageLink
-      })
-    })
-  }
-
   getBait(e) {
+    // Sometimes, it's not being triggered by a click event, hence the "if (e)"
     if (e) e.preventDefault()
+
+    // Reset the state to prepare for new stuffs. Title/description remain so it doesn't look blank.
     this.setState({
       shareable: false,
       imageLink: ""
     }, () => {
+
+      // This will store all the possible image search queries.
       let imageQueryOptions = []
 
+      // Choose a title template and loop through it to produce the proper madLibbed version.
       let title = helper.random(dictionary.titles).reduce((acc, n) => {
         if (typeof n == "string") {
           return acc + " " + n
@@ -104,6 +102,8 @@ class App extends React.Component {
 
       let randomImageQuery = helper.random(imageQueryOptions)
 
+      // The flickr API is sooo slow sometimes. Ekk. Need to find a
+      // better way or at least some sort of backup plan.
       helper.getImage(randomImageQuery).then(imageLink => {
         this.setState({
           title: title,
@@ -121,21 +121,19 @@ class App extends React.Component {
     let count = 0
 
     if (this.state.imageLink.length > 10){
-      console.log('1')
       let newKey = ref.child("articles").push({
         title: this.state.title,
         description: this.state.description,
         imageLink: this.state.imageLink,
         site_name: this.state.site_name
       }, () => {
-        console.log('2')
         this.setState({
           shareLink: location.origin + "/article/" + newKey.key(),
           shareable: true
         })
       })
     } else {
-      console.log('failed to connect. can you try again?')
+      console.log('Failed to connect. can you try again?')
     }
   }
 
@@ -167,6 +165,7 @@ class App extends React.Component {
             <div className="fb-share-button" data-href={this.state.shareLink} data-layout="button"></div>
           </div>
           <input className="link-display" value={this.state.shareLink} readOnly />
+          <div className="share-note">Share this link via Facebook or just copy & paste it anywhere, and <span className="highlighted">it'll look like a real article.</span> Muahahaha.</div>
         </div>
       )
     }

@@ -200,28 +200,23 @@
 	      FB.XFBML.parse();
 	    }
 	  }, {
-	    key: 'getImageLink',
-	    value: function getImageLink(query) {
-	      var _this3 = this;
-
-	      helper.getImage(query).then(function (imageLink) {
-	        _this3.setState({
-	          imageLink: imageLink || _this3.state.imageLink
-	        });
-	      });
-	    }
-	  }, {
 	    key: 'getBait',
 	    value: function getBait(e) {
-	      var _this4 = this;
+	      var _this3 = this;
 
+	      // Sometimes, it's not being triggered by a click event, hence the "if (e)"
 	      if (e) e.preventDefault();
+
+	      // Reset the state to prepare for new stuffs. Title/description remain so it doesn't look blank.
 	      this.setState({
 	        shareable: false,
 	        imageLink: ""
 	      }, function () {
+
+	        // This will store all the possible image search queries.
 	        var imageQueryOptions = [];
 
+	        // Choose a title template and loop through it to produce the proper madLibbed version.
 	        var title = helper.random(dictionary.titles).reduce(function (acc, n) {
 	          if (typeof n == "string") {
 	            return acc + " " + n;
@@ -234,14 +229,16 @@
 
 	        var randomImageQuery = helper.random(imageQueryOptions);
 
+	        // The flickr API is sooo slow sometimes. Ekk. Need to find a
+	        // better way or at least some sort of backup plan.
 	        helper.getImage(randomImageQuery).then(function (imageLink) {
-	          _this4.setState({
+	          _this3.setState({
 	            title: title,
 	            description: helper.random(dictionary.descriptions),
 	            site_name: helper.random(dictionary.siteNames),
-	            imageLink: imageLink || _this4.state.imageLink
+	            imageLink: imageLink || _this3.state.imageLink
 	          }, function () {
-	            _this4.renderBait();
+	            _this3.renderBait();
 	          });
 	        });
 	      });
@@ -249,28 +246,26 @@
 	  }, {
 	    key: 'renderBait',
 	    value: function renderBait() {
-	      var _this5 = this;
+	      var _this4 = this;
 
 	      var count = 0;
 
 	      if (this.state.imageLink.length > 10) {
 	        (function () {
-	          console.log('1');
 	          var newKey = ref.child("articles").push({
-	            title: _this5.state.title,
-	            description: _this5.state.description,
-	            imageLink: _this5.state.imageLink,
-	            site_name: _this5.state.site_name
+	            title: _this4.state.title,
+	            description: _this4.state.description,
+	            imageLink: _this4.state.imageLink,
+	            site_name: _this4.state.site_name
 	          }, function () {
-	            console.log('2');
-	            _this5.setState({
+	            _this4.setState({
 	              shareLink: location.origin + "/article/" + newKey.key(),
 	              shareable: true
 	            });
 	          });
 	        })();
 	      } else {
-	        console.log('failed to connect. can you try again?');
+	        console.log('Failed to connect. can you try again?');
 	      }
 	    }
 	  }, {
@@ -286,16 +281,16 @@
 	    key: 'getShareButton',
 	    value: function getShareButton() {
 	      if (this.state.shareable) {
-	        return _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'fb-share-container' }, _react2.default.createElement('div', { className: 'fb-share-button', 'data-href': this.state.shareLink, 'data-layout': 'button' })), _react2.default.createElement('input', { className: 'link-display', value: this.state.shareLink, readOnly: true }));
+	        return _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'fb-share-container' }, _react2.default.createElement('div', { className: 'fb-share-button', 'data-href': this.state.shareLink, 'data-layout': 'button' })), _react2.default.createElement('input', { className: 'link-display', value: this.state.shareLink, readOnly: true }), _react2.default.createElement('div', { className: 'share-note' }, 'Share this link via Facebook or just copy & paste it anywhere, and ', _react2.default.createElement('span', { className: 'highlighted' }, 'it\'ll look like a real article.'), ' Muahahaha.'));
 	      }
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this6 = this;
+	      var _this5 = this;
 
 	      return _react2.default.createElement('div', null, this.getGotcha(), _react2.default.createElement('h3', { className: 'site-title' }, 'clickbait generator'), _react2.default.createElement('div', { className: 'preview', style: { backgroundImage: "url('" + this.state.imageLink + "')" } }, _react2.default.createElement('div', { className: 'previewText' }, _react2.default.createElement('h2', { className: 'title' }, this.state.title), _react2.default.createElement('h4', { className: 'description' }, this.state.description))), _react2.default.createElement('form', { id: 'clickbait-generator' }, _react2.default.createElement('button', { className: 'baitMe', onClick: function onClick(e) {
-	          return _this6.getBait(e);
+	          return _this5.getBait(e);
 	        } }, 'generate some clickbait'), this.getShareButton()));
 	    }
 	  }]);
@@ -20261,7 +20256,7 @@
 
 	var places = exports.places = {
 	  at: ["the Vatican", "the White House", "the UN", "the Facebook office", "the Clinton Foundation", "the Oval Office", "Whole Foods"],
-	  in: ["Alaska", "your apartment", "New York City", "the future", "Canada", "Saudi Arabia", "France", "New Jersey", "Washington", "Russia", "Silicon Valley", "North Korea", "outer space", "Capitalist America", "our own backyards", "Mexico", "the military"]
+	  in: ["Alaska", "your apartment", "New York City", "the future", "Canada", "Saudi Arabia", "France", "New Jersey", "Washington", "Russia", "Silicon Valley", "North Korea", "outer space", "Capitalist America", "Mexico", "the military"]
 	};
 
 	var nouns = exports.nouns = {
@@ -20278,9 +20273,9 @@
 	  gerunds: ["making millions", "living", "doing yoga", "meditating", "eating kale", "doing crossfit", "voting", "smoking weed", "lying", "breathing", "making money"]
 	};
 
-	var adjectives = exports.adjectives = ["sex-crazed", "greedy", "dangerous", "unhealthy", "amazing", "armed", "angry", "poor", "Republican", "lesbian", "unsuspecting", "sexist", "money-hungry", "liberal", "racist", "feminist", "gay", "harmful", "toxic", "vegan", "violent", "biased", "depressed", "misogynist", "shocking", "homeless", "terrible", "evil", "miraculous", "American", "Western"];
+	var adjectives = exports.adjectives = ["sex-crazed", "sleazy", "greedy", "dangerous", "unhealthy", "amazing", "armed", "angry", "poor", "Republican", "lesbian", "unsuspecting", "sexist", "money-hungry", "liberal", "racist", "feminist", "gay", "harmful", "toxic", "vegan", "violent", "biased", "depressed", "misogynist", "shocking", "homeless", "terrible", "evil", "miraculous", "American", "Western"];
 
-	var siteNames = exports.siteNames = ["THETRUTH.ORG", "TheTruthDoctor.com", "SignEverySinglePetition.org", "YES.com"];
+	var siteNames = exports.siteNames = ["THETRUTH.ORG", "TheTruthDoctor.com", "SignEverySinglePetition.org", "YES.com", "CrazyButTrue.com", "HolyShitNews.net", "WeAreChange.com"];
 
 	var titles = exports.titles = [["You won't believe what happened when", nouns.celebs, verbs.past, "this", adjectives, nouns.objects.singular], [numbers, "things that changed the way I think about", nouns.celebs.concat(nouns.objects.plural, places.at, places.in)], [numbers, "things we all love about", nouns.celebs.concat(nouns.objects.plural, places.at, places.in)], ["The truth behind", nouns.celebs.concat(nouns.objects.plural, places.at, places.in), "and", nouns.celebs.concat(nouns.objects.plural, places.at, places.in)], ["What really happened with the", nouns.objects.singular, "at", places.at], ["Scientists just discovered that", nouns.objects.plural, "are actually", adjectives, "- here's the proof"], ["Reports show that", nouns.objects.isms, "is secretly", adjectives, "- and the numbers don't lie"], ["Here's what happened when", nouns.celebs, verbs.past, nouns.celebs], [numbers, "reasons why researchers are saying NO to", nouns.objects.plural], ["Can being", adjectives, "actually change your life?", "True stories from", nouns.celebs], ["Has", nouns.objects.isms.concat(places.at, places.in), "actually just been a vehicle for", nouns.objects.isms, "all along?"], ["I had no idea that", places.at.concat(places.in), "was actually", adjectives, "... until this happened."], ["What's really going on behind the scenes at", places.at], [nouns.celebs, "finally admits to being", adjectives, "- what?!"], ["This", adjectives, nouns.objects.singular, "will make you cry."], [places.at.concat(places.in), "is nothing but", nouns.objects.plural, "and", nouns.objects.plural, "- according to", nouns.celebs], ["Lifehack: 1 weird thing that all", adjectives, "people do"], ["Why everyone's talking about", nouns.objects.plural, "and", nouns.objects.isms], ["I didn't understand", nouns.objects.isms.concat(nouns.objects.plural), "until I met", nouns.celebs, " - EXCLUSIVE"], ["\"I can no longer deny my affiliation with", nouns.objects.isms, ",\" says", nouns.celebs], ["The secret to", verbs.gerunds, "while still being", adjectives], ["Did you know that", verbs.gerunds, "is making", places.in, "more", adjectives, "every day?"], ["The real problem is", nouns.objects.isms.concat(places.at), "- says", nouns.celebs], ["F***", nouns.objects.isms.concat(places.at, nouns.objects.plural, verbs.gerunds), "- says", nouns.celebs], ["Dear", nouns.celebs, "- an open letter regarding", nouns.objects.isms.concat(nouns.objects.plural)], ["When this", nouns.objects.singular, "met", nouns.celebs, "- you'll never guess what happened next."], [numbers, "things we all secretly hate about", nouns.celebs.concat(nouns.objects.plural, places.at, places.in), "- number 2 is so accurate!"]];
 

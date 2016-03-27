@@ -5,7 +5,7 @@ export const numbers =
 
 export const places = {
   at: ["the Vatican", "the White House", "the UN", "the Facebook office", "the Clinton Foundation", "the Oval Office", "Whole Foods"],
-  in: ["Alaska", "your apartment", "New York City", "the future", "Canada", "Saudi Arabia", "France", "New Jersey", "Washington", "Russia", "Silicon Valley", "North Korea", "outer space", "Capitalist America", "our own backyards", "Mexico", "the military"]
+  in: ["Alaska", "your apartment", "New York City", "the future", "Canada", "Saudi Arabia", "France", "New Jersey", "Washington", "Russia", "Silicon Valley", "North Korea", "outer space", "Capitalist America", "Mexico", "the military"]
 }
 
 export const nouns =
@@ -25,14 +25,17 @@ export const verbs =
   }
 
 export const adjectives =
-  ["sex-crazed", "greedy", "dangerous", "unhealthy", "amazing", "armed", "angry", "poor", "Republican", "lesbian", "unsuspecting", "sexist", "money-hungry", "liberal", "racist", "feminist", "gay", "harmful", "toxic", "vegan", "violent", "biased", "depressed", "misogynist", "shocking", "homeless", "terrible", "evil", "miraculous", "American", "Western"]
+  ["sex-crazed", "sleazy", "greedy", "dangerous", "unhealthy", "amazing", "armed", "angry", "poor", "Republican", "lesbian", "unsuspecting", "sexist", "money-hungry", "liberal", "racist", "feminist", "gay", "harmful", "toxic", "vegan", "violent", "biased", "depressed", "misogynist", "shocking", "homeless", "terrible", "evil", "miraculous", "American", "Western"]
 
 export const siteNames =
   [
     "THETRUTH.ORG",
     "TheTruthDoctor.com",
     "SignEverySinglePetition.org",
-    "YES.com"
+    "YES.com",
+    "CrazyButTrue.com",
+    "HolyShitNews.net",
+    "WeAreChange.com"
   ]
 
 export const titles =
