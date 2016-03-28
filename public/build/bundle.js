@@ -193,12 +193,12 @@
 	        });
 	      }
 	    }
-	  }, {
-	    key: 'componentDidUpdate',
-	    value: function componentDidUpdate() {
-	      // This makes sure that everytime we update the component, the FB data does too.
-	      FB.XFBML.parse();
-	    }
+
+	    // componentDidUpdate() {
+	    //   // This makes sure that everytime we update the component, the FB and TW data does too.
+	    //   FB.XFBML.parse()
+	    // }
+
 	  }, {
 	    key: 'getBait',
 	    value: function getBait(e) {
@@ -282,7 +282,7 @@
 	    key: 'getShareButton',
 	    value: function getShareButton() {
 	      if (this.state.shareable) {
-	        return _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'fb-share-container' }, _react2.default.createElement('div', { className: 'fb-share-button', 'data-href': this.state.shareLink, 'data-layout': 'button' })), _react2.default.createElement('input', { className: 'link-display', value: this.state.shareLink, readOnly: true }), _react2.default.createElement('div', { className: 'share-note' }, 'Share this link via Facebook or just copy & paste it anywhere, and ', _react2.default.createElement('span', { className: 'highlighted' }, 'it\'ll look like a real article.'), ' Muahahaha.'));
+	        return _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'fb-share-container' }, _react2.default.createElement('a', { href: "https://www.facebook.com/sharer/sharer.php?u=" + encodeURI(this.state.shareLink), target: '_blank' }, _react2.default.createElement('i', { className: 'fa fa-facebook' }), _react2.default.createElement('span', null, ' Share'))), _react2.default.createElement('div', { className: 'twitter-share-container' }, _react2.default.createElement('a', { href: "https://twitter.com/intent/tweet?text=" + encodeURI(this.state.title + " | " + this.state.shareLink), target: '_blank' }, _react2.default.createElement('i', { className: 'fa fa-twitter' }), _react2.default.createElement('span', null, ' Tweet'))), _react2.default.createElement('input', { className: 'link-display', value: this.state.shareLink, readOnly: true }), _react2.default.createElement('div', { className: 'share-note' }, 'Click to share or copy & paste it anywhere, and ', _react2.default.createElement('span', { className: 'highlighted' }, 'it\'ll look like a real article.'), ' Muahahaha.'));
 	      }
 	    }
 	  }, {

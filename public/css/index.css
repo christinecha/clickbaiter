@@ -65,21 +65,40 @@ button:hover {
   text-align: left;
 }
 
-.fb-share-container, .link-display {
+.fb-share-container, .twitter-share-container, .link-display {
   display: inline-block;
-  margin: 10px;
+  margin: 5px;
   vertical-align: middle;
 }
 
+.fb-share-container, .twitter-share-container {
+  padding: 8px 12px;
+  font-size: 10px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.fb-share-container:hover, .twitter-share-container:hover {
+  opacity: 0.8;
+}
+
+.fb-share-container { background-color: #425F9C; }
+.twitter-share-container { background-color: #55ACEE; }
+
+.fb-share-container a, .twitter-share-container a {
+  color: white !important;
+  text-decoration: none !important;
+}
+
 .link-display {
-  padding: 2px 4px;
+  padding: 6px 10px;
   width: 300px;
   border: none;
   border-bottom: 2px solid #00aeef;
   background-color: #f4f4f5;
 }
 
-.share-note { font-size: 12px; margin: 0 20px; }
+.share-note { font-size: 12px; margin: 0 30px; }
 .share-note .highlighted { font-size: 14px; font-weight: bold;}
 
 #credits {
@@ -119,6 +138,6 @@ button:hover {
   }
 
   .link-display {
-    width: 200px;
+    width: 160px;
   }
 }

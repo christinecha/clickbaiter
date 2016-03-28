@@ -71,10 +71,10 @@ class App extends React.Component {
     }
   }
 
-  componentDidUpdate() {
-    // This makes sure that everytime we update the component, the FB data does too.
-    FB.XFBML.parse()
-  }
+  // componentDidUpdate() {
+  //   // This makes sure that everytime we update the component, the FB and TW data does too.
+  //   FB.XFBML.parse()
+  // }
 
   getBait(e) {
     // Sometimes, it's not being triggered by a click event, hence the "if (e)"
@@ -163,10 +163,17 @@ class App extends React.Component {
       return (
         <div>
           <div className="fb-share-container">
-            <div className="fb-share-button" data-href={this.state.shareLink} data-layout="button"></div>
+            <a href={"https://www.facebook.com/sharer/sharer.php?u=" + encodeURI(this.state.shareLink)} target="_blank">
+              <i className="fa fa-facebook"></i><span> Share</span>
+            </a>
+          </div>
+          <div className="twitter-share-container">
+            <a href={"https://twitter.com/intent/tweet?text=" + encodeURI(this.state.title + " | " + this.state.shareLink)} target="_blank">
+              <i className="fa fa-twitter"></i><span> Tweet</span>
+            </a>
           </div>
           <input className="link-display" value={this.state.shareLink} readOnly />
-          <div className="share-note">Share this link via Facebook or just copy & paste it anywhere, and <span className="highlighted">it'll look like a real article.</span> Muahahaha.</div>
+          <div className="share-note">Click to share or copy & paste it anywhere, and <span className="highlighted">it'll look like a real article.</span> Muahahaha.</div>
         </div>
       )
     }
