@@ -68,6 +68,8 @@ class App extends React.Component {
           this.getBait()
         }
       })
+    } else {
+      this.getBait()
     }
   }
 

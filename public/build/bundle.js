@@ -191,6 +191,8 @@
 	              _this2.getBait();
 	            }
 	        });
+	      } else {
+	        this.getBait();
 	      }
 	    }
 
