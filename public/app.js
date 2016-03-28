@@ -168,7 +168,7 @@ class App extends React.Component {
             </a>
           </div>
           <div className="twitter-share-container">
-            <a href={"https://twitter.com/intent/tweet?text=" + encodeURI(this.state.title + " | " + this.state.shareLink)} target="_blank">
+            <a href={"https://twitter.com/intent/tweet?text=" + encodeURI(this.state.title + " >> " + this.state.shareLink)} target="_blank">
               <i className="fa fa-twitter"></i><span> Tweet</span>
             </a>
           </div>
