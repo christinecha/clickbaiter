@@ -73,11 +73,6 @@ class App extends React.Component {
     }
   }
 
-  // componentDidUpdate() {
-  //   // This makes sure that everytime we update the component, the FB and TW data does too.
-  //   FB.XFBML.parse()
-  // }
-
   getBait(e) {
     // Sometimes, it's not being triggered by a click event, hence the "if (e)"
     if (e) e.preventDefault()

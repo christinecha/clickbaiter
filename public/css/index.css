@@ -1,3 +1,5 @@
+/*Global Styles*/
+
 body, * {
   margin: 0 0 0 0;
   padding: 0 0 0 0;
@@ -27,6 +29,8 @@ button:hover {
   background-color: #EF0091;
 }
 
+/*Gotcha Tag*/
+
 .gotcha {
   padding: 20px;
   background-color: rgba(255,255,0,0.8);
@@ -35,11 +39,15 @@ button:hover {
 .gotcha p { font-size: 13px; margin-top: 10px; }
 .gotcha p .count { font-size: 16px; font-weight: bold; }
 
+/*Header*/
+
 .site-title {
   font-family: "Leckerli One", cursive;
   font-size: 80px;
   margin: 20px auto;
 }
+
+/*Preview*/
 
 .preview {
   height: 400px;
